@@ -32,7 +32,7 @@ class StdOutListener(tweepy.StreamListener):
                     print data
                     print accumu_len
                     haha=raw_input("stop")
-                with open("twitter_raw%s_%s"%(str(date.today()),prefix),'a') as output:
+                with open("./output/twitter_raw_%s_%s"%(str(date.today()),prefix),'a') as output:
                     json.dump(json_data,output)
                     output.write('\n')
                 if accumu_len > max_len:
@@ -82,7 +82,7 @@ if __name__=="__main__":
     if debug:
         print filter_name
         haha=raw_input("stop")
-    stream.filter(track=[filter_name])
+    stream.filter(track=[filter_name],languages=['en'])
     #stream.filter()
 
 

@@ -60,4 +60,5 @@ script/dep/
 
 #output file
 test/output/
+test/nohup.out
 
