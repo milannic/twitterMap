@@ -58,3 +58,6 @@ script/dep/
 #gvim swp file
 *.swp
 
+#output file
+test/output/
+
