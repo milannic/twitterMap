@@ -57,6 +57,7 @@ if __name__=="__main__":
     auth.set_access_token(access_token, access_token_secret)
 
     api = tweepy.API(auth)
+    print api.trends_place(1)
 #    print api.me().name
 #    print api.me().id
     count = 0
@@ -67,22 +68,22 @@ if __name__=="__main__":
     #print limit[s]
     print limit[s][s3]
 #    print type(limit[s][s3])
-    try:
-        for tweet in tweepy.Cursor(api.search,
-                                   q="google",
-                                   count=100,
-                                   result_type="recent",
-                                   include_entities=True,
-                                   lang="en").items():
-                                   #geocode="40.714353,-74.005973,2km",
-            #print tweet.created_at, tweet.text
-            print tweet.coordinates
-            print tweet.id
-            print tweet.text
-            count = count +1
-            print count
-    except:
-        print "have reached the rate limit"
+#    try:
+#        for tweet in tweepy.Cursor(api.search,
+#                                   q="google",
+#                                   count=100,
+#                                   result_type="recent",
+#                                   include_entities=True,
+#                                   lang="en").items():
+#                                   #geocode="40.714353,-74.005973,2km",
+#            #print tweet.created_at, tweet.text
+#            print tweet.coordinates
+#            print tweet.id
+#            print tweet.text
+#            count = count +1
+#            print count
+#    except:
+#        print "have reached the rate limit"
 #
 #        print count
 #    for element in result:

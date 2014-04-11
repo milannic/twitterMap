@@ -30,7 +30,6 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
-
 #class tweetsDb()
 
 
@@ -55,24 +54,11 @@ class MainHandler(webapp2.RequestHandler):
             self.response.write("have reached the rate limit for search")
 
 
-class MapHandler(webapp2.RequestHandler):
-    def __init__(self, request, response):
-        self.initialize(request, response)
-
-    def get(self):
-        template = JINJA_ENVIRONMENT.get_template('map.html')
-        self.response.write(template.render())
-
-    def post(self):
-        keyword = cgi.escape(self.request.get('keyword'))
-        template_values = {
-            'keyword': keyword,
-        }
-        template = JINJA_ENVIRONMENT.get_template('map.html')
-        self.response.write(template.render(template_values))
-
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
-    ('/viewmap', MapHandler),
-    ('/testsingletweet',twitter_map_admin_test.UploadSingleTweet)
+    ('/viewmap', twitter_map_admin_test.MapHandler),
+    ('/testsingletweet',twitter_map_admin_test.GetSingleTweet),
+    ('/testposttweet',twitter_map_admin_test.PostSingleTweet),
+    ('/testgetdatastore',twitter_map_admin_test.GetTweetFromDatastore),
+    ('/testcleardb',twitter_map_admin_test.DeleteAllTweetEntries)
 ], debug=True)

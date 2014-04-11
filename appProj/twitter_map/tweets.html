@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html>
+  <body>
+    {% for tweet in tweets %}
+        <div>
+            <p> {{tweet.text}} </p>
+            <div>
+                <li> {{tweet.location.lat}} </li>
+                <li> {{tweet.location.lon}} </li>
+            </div>
+        </div>
+    {% endfor %}
+
+    <hr>
+
+  </body>
+</html>
+{% endautoescape %}
