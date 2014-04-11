@@ -22,6 +22,12 @@ import tweepy
 import twitter_map_admin_test
 import twitter_map_config
 
+import jinja2
+JINJA_ENVIRONMENT = jinja2.Environment(
+    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+    extensions=['jinja2.ext.autoescape'],
+    autoescape=True)
+
 
 #class tweetsDb()
 
@@ -36,8 +42,13 @@ class MainHandler(webapp2.RequestHandler):
         #self.response.write(self.api.me().name)
         try:
             result = self.api.search("windows xp",count=100)
-            for ele in result:
-                self.response.write(ele.text)
+
+            template_values = {
+                'tweets': result,
+            }
+            template = JINJA_ENVIRONMENT.get_template('index.html')
+            self.response.write(template.render(template_values))
+
         except:
             self.response.write("have reached the rate limit for search")
 
