@@ -36,3 +36,4 @@ class HotKeyList(ndb.Model):
     """
     hid = ndb.IntegerProperty()
     text = ndb.StringProperty()
+    count = ndb.IntegerProperty()

@@ -77,6 +77,15 @@ class PostTopHotKey(webapp2.RequestHandler):
         try:
             hot_key_data = json.loads(self.request.body)
             hot_key_ins = twitter_map_db_model.HotKeyList()
+            print hot_key_data
+            count = 0
+            for key in hot_key_data:
+                hot_key_ins = twitter_map_db_model.HotKeyList()
+                hot_key_ins.hid = count
+                hot_key_ins.text = key
+                hot_key_ins.count = hot_key_data[key]
+                hot_key_ins.put()
+                count = count+1
             self.response.write("haha")
         except Exception,e:
             self.response.write(e)
