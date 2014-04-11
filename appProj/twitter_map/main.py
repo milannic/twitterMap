@@ -19,6 +19,7 @@ import sys
 sys.path.insert(0,'libs')
 
 import tweepy
+import jinja2
 import twitter_map_admin_test
 import twitter_map_config
 
