@@ -29,11 +29,6 @@ output = options.output
 
 
 
-try:
-    if len(sys.argv) > 1:
-        threshold = int(sys.argv[1])
-except Exception,e:
-    print e
 
 with open('./output/twitter_raw','r') as input_json:
     for line in input_json:
@@ -87,5 +82,5 @@ for key in global_dict.keys():
 
 if output:
     with open('./output/twitter_dict_count_%d'%(threshold),'w') as output_json:
-        json.dump(global_dict,output_json,indent=4)
+        json.dump(global_dict,output_json)
 

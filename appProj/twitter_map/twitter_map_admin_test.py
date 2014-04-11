@@ -4,6 +4,7 @@ import twitter_map_util
 import webapp2
 import json
 from google.appengine.ext import ndb
+from google.appengine.ext import db
 from datetime import datetime
 
 #used for test
@@ -60,10 +61,32 @@ class GetTweetFromDatastore(webapp2.RequestHandler):
         haha = self.request.get("type","haha",0)
         try:
             q = twitter_map_db_model.Tweet.query().order(twitter_map_db_model.Tweet.uid)
+            print type(q)
             for p in q:
-                print p.text.encode('ascii','ignore')
-                print type(p.text)
+                #print type(p)
+                #print p.text.encode('ascii','ignore')
+                #print type(p.text)
                 self.response.write(p.text)
 
+        except Exception,e:
+            self.response.write(e)
+
+class PostTopHotKey(webapp2.RequestHandler):
+
+    def post(self):
+        try:
+            hot_key_data = json.loads(self.request.body)
+            hot_key_ins = twitter_map_db_model.HotKeyList()
+            self.response.write("haha")
+        except Exception,e:
+            self.response.write(e)
+            #self.response.write("server internal error")
+
+
+class DeleteAllTweetEntries(webapp2.RequestHandler):
+    def get(self):
+        try:
+            ndb.delete_multi(twitter_map_db_model.Tweet.query().fetch(keys_only=True))
+            self.response.write('succeed')
         except Exception,e:
             self.response.write(e)
