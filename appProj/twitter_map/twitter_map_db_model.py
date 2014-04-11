@@ -11,8 +11,7 @@ class Tweet(ndb.Model):
     tid = ndb.IntegerProperty()
     uid = ndb.IntegerProperty()
     uname = ndb.StringProperty()
-    longitude = ndb.FloatProperty()
-    latitude = ndb.FloatProperty()
+    location = ndb.GeoPtProperty()
     date = ndb.DateTimeProperty()
     text = ndb.StringProperty()
     hk0 = ndb.IntegerProperty()
@@ -22,3 +21,18 @@ class Tweet(ndb.Model):
     hk4 = ndb.IntegerProperty()
     hk5 = ndb.IntegerProperty()
     hk6 = ndb.IntegerProperty()
+
+class HotKeywordsCount(ndb.Model):
+    """
+    We store a hashmap in the datastore
+    """
+    count = ndb.IntegerProperty()
+    text = ndb.StringProperty()
+
+
+class HotKeyList(ndb.Model):
+    """
+    7 integers corresponding hot key text
+    """
+    hid = ndb.IntegerProperty()
+    text = ndb.StringProperty()

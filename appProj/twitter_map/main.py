@@ -18,25 +18,18 @@ import webapp2
 import sys
 sys.path.insert(0,'libs')
 
-import tweepy
 import jinja2
 import twitter_map_admin_test
 import twitter_map_config
-
 
 #class tweetsDb()
 
 
 class MainHandler(webapp2.RequestHandler):
-    def __init__(self, request, response):
-        self.initialize(request, response)
-        self.auth = tweepy.OAuthHandler(twitter_map_config.consumer_key, twitter_map_config.consumer_secret)
-        self.auth.set_access_token(twitter_map_config.access_token, twitter_map_config.access_token_secret)
-        self.api = tweepy.API(self.auth)
     def get(self):
         #self.response.write(self.api.me().name)
         try:
-            result = self.api.search("windows xp",count=100)
+            result = twitter_map_config.twitter_api.search("windows xp",count=100)
             for ele in result:
                 self.response.write(ele.text)
         except:
@@ -44,6 +37,6 @@ class MainHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
-    ('/testsingletweet',twitter_map_admin_test.UploadSingleTweet),
+    ('/testsingletweet',twitter_map_admin_test.GetSingleTweet),
     ('/testposttweet',twitter_map_admin_test.PostSingleTweet)
 ], debug=True)
