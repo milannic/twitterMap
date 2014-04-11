@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html>
+  <body>
+    {% for ele in tweets %}
+      <p> {{ele.text}} </p>
+    {% endfor %}
+
+    <hr>
+
+  </body>
+</html>
+{% endautoescape %}
