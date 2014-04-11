@@ -64,7 +64,7 @@ if __name__=="__main__":
     s = u'resources'
     s2 = u'rate_limit_context'
     s3 = u'search'
-    print limit[s]
+    #print limit[s]
     print limit[s][s3]
 #    print type(limit[s][s3])
     try:
@@ -72,19 +72,18 @@ if __name__=="__main__":
                                    q="google",
                                    count=100,
                                    result_type="recent",
-                                   geocode="40.714353,-74.005973,10km",
                                    include_entities=True,
                                    lang="en").items():
+                                   #geocode="40.714353,-74.005973,2km",
             #print tweet.created_at, tweet.text
             print tweet.coordinates
             print tweet.id
             print tweet.text
             count = count +1
-            if count > 3:
-                break
+            print count
     except:
         print "have reached the rate limit"
-
+#
 #        print count
 #    for element in result:
 #        print element.created_at

@@ -19,10 +19,12 @@ import sys
 sys.path.insert(0,'libs')
 
 import tweepy
+import os
+import cgi
+import jinja2
 import twitter_map_admin_test
 import twitter_map_config
 
-import jinja2
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
@@ -38,6 +40,7 @@ class MainHandler(webapp2.RequestHandler):
         self.auth = tweepy.OAuthHandler(twitter_map_config.consumer_key, twitter_map_config.consumer_secret)
         self.auth.set_access_token(twitter_map_config.access_token, twitter_map_config.access_token_secret)
         self.api = tweepy.API(self.auth)
+
     def get(self):
         #self.response.write(self.api.me().name)
         try:
@@ -48,11 +51,28 @@ class MainHandler(webapp2.RequestHandler):
             }
             template = JINJA_ENVIRONMENT.get_template('index.html')
             self.response.write(template.render(template_values))
-
         except:
             self.response.write("have reached the rate limit for search")
 
+
+class MapHandler(webapp2.RequestHandler):
+    def __init__(self, request, response):
+        self.initialize(request, response)
+
+    def get(self):
+        template = JINJA_ENVIRONMENT.get_template('map.html')
+        self.response.write(template.render())
+
+    def post(self):
+        keyword = cgi.escape(self.request.get('keyword'))
+        template_values = {
+            'keyword': keyword,
+        }
+        template = JINJA_ENVIRONMENT.get_template('map.html')
+        self.response.write(template.render(template_values))
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
+    ('/viewmap', MapHandler),
     ('/testsingletweet',twitter_map_admin_test.UploadSingleTweet)
 ], debug=True)
