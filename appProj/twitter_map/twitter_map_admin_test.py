@@ -54,3 +54,16 @@ class PostSingleTweet(webapp2.RequestHandler):
         except Exception,e:
             self.response.write(e)
             #self.response.write("server internal error")
+
+class GetTweetFromDatastore(webapp2.RequestHandler):
+    def get(self):
+        haha = self.request.get("type","haha",0)
+        try:
+            q = twitter_map_db_model.Tweet.query().order(twitter_map_db_model.Tweet.uid)
+            for p in q:
+                print p.text.encode('ascii','ignore')
+                print type(p.text)
+                self.response.write(p.text)
+
+        except Exception,e:
+            self.response.write(e)

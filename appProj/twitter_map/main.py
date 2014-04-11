@@ -38,5 +38,6 @@ class MainHandler(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/testsingletweet',twitter_map_admin_test.GetSingleTweet),
-    ('/testposttweet',twitter_map_admin_test.PostSingleTweet)
+    ('/testposttweet',twitter_map_admin_test.PostSingleTweet),
+    ('/testgetdatastore',twitter_map_admin_test.GetTweetFromDatastore),
 ], debug=True)
