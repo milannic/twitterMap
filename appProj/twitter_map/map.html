@@ -33,13 +33,13 @@
 
 var map, pointarray, heatmap;
 
-//var data = {{data|safe}};
+//var tweets = {{template_values}}
 
 var tweetData = [];
-//for(var tweet in data) {
-//    console.log(tweet.location.lat);
-//    tweetData.append(new google.maps.LatLng(tweet.location.lat, tweet.location.lon));
-//}
+for(var tweet in template_values) {
+    console.log(tweet.location.lat);
+    tweetData.append(new google.maps.LatLng(tweet.location.lat, tweet.location.lon));
+}
 
 function initialize() {
   var mapOptions = {
@@ -51,7 +51,7 @@ function initialize() {
   map = new google.maps.Map(document.getElementById('map-canvas'),
       mapOptions);
 
-  var pointArray = new google.maps.MVCArray(taxiData);
+  var pointArray = new google.maps.MVCArray(tweetData);
 
   heatmap = new google.maps.visualization.HeatmapLayer({
     data: pointArray

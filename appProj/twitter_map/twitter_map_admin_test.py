@@ -69,21 +69,16 @@ class GetTweetFromDatastore(webapp2.RequestHandler):
         haha = self.request.get("type","haha",0)
         try:
             q = twitter_map_db_model.Tweet.query().order(twitter_map_db_model.Tweet.uid)
-            print type(q)
-            for p in q:
-                #print type(p)
-                #print p.text.encode('ascii','ignore')
-                #print type(p.text)
-                self.response.write(p.text)
-
+            template_values = {
+                'tweets': q,
+            }
+            template = JINJA_ENVIRONMENT.get_template('tweets.html')
+            self.response.write(template.render(template_values))
         except Exception,e:
             self.response.write(e)
 
 
 class QueryTweet():
-    def __init__(self):
-        pass
-
     @classmethod
     def getByKeyword(self, keyword):
         try:
@@ -100,34 +95,35 @@ class MapHandler(webapp2.RequestHandler):
 
     def get(self):
         try:
-            tweets = QueryTweet.getByKeyword('')
-            data = []
-            #data.append({})
-            # for t in tweets:
-            #     tweet = {"uid":t.uid, "uname":t.uname, "lat":t.location.lat, "lon":t.location.lon, "date":t.date.strftime("%Y-%m-%d %H:%M:%S"), "text":t.text, "hk0":t.hk0,
-            #                  "hk1":t.hk1, "hk2":t.hk2, "hk3":t.hk3, "hk4":t.hk4, "hk5":t.hk5, "hk6":t.hk6}
-            #     data.append(tweet)
-            #     break
-            template = JINJA_ENVIRONMENT.get_template('map.html')
-            self.response.write(template.render(json.dumps(data)))
-
-        except Exception, e:
-            self.response.write(e)
-
-
-    def post(self):
-        keyword = cgi.escape(self.request.get('keyword'))
-        try:
-            tweets = QueryTweet.getByKeyword(keyword)
+            result = QueryTweet.getByKeyword('')
+            tweets = []
+            for t in result:
+                tweet = {"uid":t.uid, "uname":t.uname, "lat":t.location.lat, "lon":t.location.lon, "date":t.date.strftime("%Y-%m-%d %H:%M:%S"), "text":t.text, "hk0":t.hk0,
+                             "hk1":t.hk1, "hk2":t.hk2, "hk3":t.hk3, "hk4":t.hk4, "hk5":t.hk5, "hk6":t.hk6}
+                tweets.append(json.dumps(tweet))
             template_values = {
-                'keyword': keyword,
                 'tweets': tweets,
             }
             template = JINJA_ENVIRONMENT.get_template('map.html')
-            self.response.write(template.render(json.dumps(template_values)))
+            self.response.write(template.render(template_values))
 
         except Exception, e:
             self.response.write(e)
+
+
+    # def post(self):
+    #     keyword = cgi.escape(self.request.get('keyword'))
+    #     try:
+    #         tweets = QueryTweet.getByKeyword(keyword)
+    #         template_values = {
+    #             'keyword': keyword,
+    #             'tweets': tweets,
+    #         }
+    #         template = JINJA_ENVIRONMENT.get_template('map.html')
+    #         self.response.write(template.render(json.dumps(template_values)))
+    #
+    #     except Exception, e:
+    #         self.response.write(e)
 
 
 class PostTopHotKey(webapp2.RequestHandler):

@@ -6,8 +6,10 @@
         <div>
             <p> {{tweet.text}} </p>
             <div>
-                <li> {{tweet.location.lat}} </li>
-                <li> {{tweet.location.lon}} </li>
+                {{tweet.location}}
+            </div>
+            <div>
+                {{tweet.date}}
             </div>
         </div>
     {% endfor %}
