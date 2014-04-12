@@ -41,13 +41,7 @@ class PostSingleTweet(webapp2.RequestHandler):
     #        tweet_data['coordinates']['coordinates'][1]
             tweet_ins.text = tweet_data['text']
             hot_key_list = twitter_map_util.parseTweet(tweet_data['text'])
-            tweet_ins.hk0 = hot_key_list[0]
-            tweet_ins.hk1 = hot_key_list[1]
-            tweet_ins.hk2 = hot_key_list[2]
-            tweet_ins.hk3 = hot_key_list[3]
-            tweet_ins.hk4 = hot_key_list[4]
-            tweet_ins.hk5 = hot_key_list[5]
-            tweet_ins.hk6 = hot_key_list[6]
+            tweet_ins.hk = hot_key_list
             tweet_ins.location = ndb.GeoPt(float(tweet_data['coordinates']['coordinates'][1]),float(tweet_data['coordinates']['coordinates'][0]))
             tweet_ins.tid = int(tweet_data['id'])
             tweet_ins.uid = int(tweet_data['user']['id'])

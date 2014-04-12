@@ -14,13 +14,7 @@ class Tweet(ndb.Model):
     location = ndb.GeoPtProperty()
     date = ndb.DateTimeProperty()
     text = ndb.StringProperty()
-    hk0 = ndb.IntegerProperty()
-    hk1 = ndb.IntegerProperty()
-    hk2 = ndb.IntegerProperty()
-    hk3 = ndb.IntegerProperty()
-    hk4 = ndb.IntegerProperty()
-    hk5 = ndb.IntegerProperty()
-    hk6 = ndb.IntegerProperty()
+    hk = ndb.StringProperty(repeated=True)
 
 
 
