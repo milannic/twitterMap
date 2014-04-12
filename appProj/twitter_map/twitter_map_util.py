@@ -59,32 +59,34 @@ def parseTweet(tweet_text):
     '''
     when received a new tweet, you should use this function to determine how much hot keys it contains now
     '''
-    hot_key_list = [0, 0, 0, 0, 0, 0, 0]
-    hot_key_dict = getHotKeyDict()
+    #hot_key_list = [0, 0, 0, 0, 0, 0, 0]
+    #hot_key_dict = getHotKeyDict()
     #print hot_key_dict
-    if hot_key_dict != -1:
-        parse_text = tweet_text.encode('ascii', 'ignore')
-        filter_text = parse_text.lower()
-        filter_text = filter_text.replace('\n', ' ')
-        filter_text = filter_text.replace('#', ' ')
-        filter_text = filter_text.replace('-', '_')
-        #filter http link
-        filter_text = re.sub(r'http[s]?://(.*?) ', ' ', filter_text)
-        #filter tail http link
-        filter_text = re.sub(r'http[s]?://(.*?)$', ' ', filter_text)
-        filter_text = re.sub(r'&(.*?)\s', ' ', filter_text)
-        filter_text = re.sub(r'i\'m', ' ', filter_text)
-        filter_text = re.sub(r'@(.*?)\s', ' ', filter_text)
-        filter_text = re.sub(r'[^\w]', ' ', filter_text)
-        if filter_text.strip():
-            filter_text_list = filter_text.split(" ")
-            filter_text_list = list(set(filter_text_list))
-            #print filter_text_list
-            for ele in filter_text_list:
-                if ele in hot_key_dict.keys():
-                    hot_key_list[hot_key_dict[ele]] = 1
+    key_list = []
+    parse_text = tweet_text.encode('ascii', 'ignore')
+    filter_text = parse_text.lower()
+    filter_text = filter_text.replace('\n', ' ')
+    filter_text = filter_text.replace('#', ' ')
+    filter_text = filter_text.replace('-', '_')
+    #filter http link
+    filter_text = re.sub(r'http[s]?://(.*?) ', ' ', filter_text)
+    #filter tail http link
+    filter_text = re.sub(r'http[s]?://(.*?)$', ' ', filter_text)
+    filter_text = re.sub(r'&(.*?)\s', ' ', filter_text)
+    filter_text = re.sub(r'i\'m', ' ', filter_text)
+    filter_text = re.sub(r'@(.*?)\s', ' ', filter_text)
+    filter_text = re.sub(r'[^\w]', ' ', filter_text)
+    if filter_text.strip():
+        filter_text_list = filter_text.split(" ")
+        filter_text_list = list(set(filter_text_list))
+        for ele in filter_text_list:
+            if ele:
+                if len(ele) != 1:
+                    if ele not in stop_word_list:
+                        #print type(ele)
+                        key_list.append(ele)
 
-    return hot_key_list
+    return key_list
 
 
 def putTweetToDataStore(tweet):
@@ -97,13 +99,7 @@ def putTweetToDataStore(tweet):
         print tweet.text
         tweet_ins.text = tweet.text
         hot_key_list = parseTweet(tweet.text)
-        tweet_ins.hk0 = hot_key_list[0]
-        tweet_ins.hk1 = hot_key_list[1]
-        tweet_ins.hk2 = hot_key_list[2]
-        tweet_ins.hk3 = hot_key_list[3]
-        tweet_ins.hk4 = hot_key_list[4]
-        tweet_ins.hk5 = hot_key_list[5]
-        tweet_ins.hk6 = hot_key_list[6]
+        tweet_ins.hk = hot_key_list
         if tweet.coordinates is not None:
             tweet_ins.location = ndb.GeoPt(float(tweet.coordinates.coordinates[1]),
                                            float(tweet.coordinates.coordinates[0]))

@@ -41,13 +41,7 @@ class PostSingleTweet(webapp2.RequestHandler):
     #        tweet_data['coordinates']['coordinates'][1]
             tweet_ins.text = tweet_data['text']
             hot_key_list = twitter_map_util.parseTweet(tweet_data['text'])
-            tweet_ins.hk0 = hot_key_list[0]
-            tweet_ins.hk1 = hot_key_list[1]
-            tweet_ins.hk2 = hot_key_list[2]
-            tweet_ins.hk3 = hot_key_list[3]
-            tweet_ins.hk4 = hot_key_list[4]
-            tweet_ins.hk5 = hot_key_list[5]
-            tweet_ins.hk6 = hot_key_list[6]
+            tweet_ins.hk = hot_key_list
             tweet_ins.location = ndb.GeoPt(float(tweet_data['coordinates']['coordinates'][1]),float(tweet_data['coordinates']['coordinates'][0]))
             tweet_ins.tid = int(tweet_data['id'])
             tweet_ins.uid = int(tweet_data['user']['id'])
@@ -76,7 +70,7 @@ class GetTweetFromDatastore(webapp2.RequestHandler):
 
 class QueryTweet():
     @classmethod
-    def getByKeyword(cls,keyword):
+    def getByKeyword(cls,keyword=None):
         try:
             if keyword is None:
                 result = twitter_map_db_model.Tweet.query().order(twitter_map_db_model.Tweet.uid)
@@ -84,8 +78,8 @@ class QueryTweet():
                 result = twitter_map_db_model.Tweet.query(twitter_map_db_model.Tweet.hk == keyword).order(twitter_map_db_model.Tweet.uid)
             tweets = []
             for t in result:
-                tweet = {"uid":t.uid, "uname":t.uname, "location":{"lat":t.location.lat, "lon":t.location.lon,}, "date":t.date.strftime("%Y-%m-%d %H:%M:%S"), "text":t.text, "hk0":t.hk0,
-                             "hk1":t.hk1, "hk2":t.hk2, "hk3":t.hk3, "hk4":t.hk4, "hk5":t.hk5, "hk6":t.hk6}
+                tweet = {"uid":t.uid, "uname":t.uname, "location":{"lat":t.location.lat, "lon":t.location.lon,}, "date":t.date.strftime("%Y-%m-%d %H:%M:%S"), "text":t.text,
+                             "hk":t.hk}
                 tweets.append(json.dumps(tweet))
             return tweets
 
