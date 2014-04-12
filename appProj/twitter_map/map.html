@@ -33,19 +33,19 @@
 
 var map, pointarray, heatmap;
 
-//var tweets = {{template_values}}
+var tweetsArray = {{tweets|safe}}
 
 var tweetData = [];
-for(var tweet in template_values) {
-    console.log(tweet.location.lat);
-    tweetData.append(new google.maps.LatLng(tweet.location.lat, tweet.location.lon));
+for(var i=0; i<tweetsArray.length; i++) {
+    var tweet = JSON.parse(tweetsArray[i]);
+    tweetData[i] = new google.maps.LatLng(tweet.location.lat, tweet.location.lon);
 }
 
 function initialize() {
   var mapOptions = {
-    zoom: 13,
-    center: new google.maps.LatLng(50.79194441, 0.27999956),
-    mapTypeId: google.maps.MapTypeId.MAP
+    zoom: 3,
+    center: new google.maps.LatLng(40.579973, -74.045534),
+    mapTypeId: google.maps.MapTypeId.SATELLITE
   };
 
   map = new google.maps.Map(document.getElementById('map-canvas'),
