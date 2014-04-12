@@ -12,5 +12,10 @@ indexes:
 
 - kind: Tweet
   properties:
+  - name: hk
+  - name: uid
+
+- kind: Tweet
+  properties:
   - name: hk0
   - name: uid
