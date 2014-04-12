@@ -20,7 +20,7 @@ class Tweet(ndb.Model):
 
 class HotKeyList(ndb.Model):
     """
-    7 integers corresponding hot key text
+    continuous integers corresponding hot key text
     """
     hid = ndb.IntegerProperty()
     text = ndb.StringProperty()

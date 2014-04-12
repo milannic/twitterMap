@@ -7,4 +7,6 @@ access_token_secret="ZYBIZZw7BrPOy3fjjnWceHwVzHjkLqzvF2cB3j2cwTwww"
 twitter_auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 twitter_auth.set_access_token(access_token,access_token_secret)
 twitter_api = tweepy.API(twitter_auth)
-top_7_hotkey_memcache_key="top_hot_keys"
+top_hot_key_memcache_key="top_hot_keys"
+re_construct_threshold = 10000
+key_word_length = 10

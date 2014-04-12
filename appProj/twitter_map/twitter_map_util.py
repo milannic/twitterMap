@@ -37,23 +37,26 @@ def getHotKeyDict():
     data store, -1 means currently we won't have hot key info, it will only be in the debug stage.
     and whenever you want to get information about the hot key dict you should use this function
     '''
-    hot_key_dict = memcache.get(twitter_map_config.top_7_hotkey_memcache_key)
-    if hot_key_dict is not None:
-        return hot_key_dict
-    else:
-        hot_key_dict = {}
-        try:
-            q = twitter_map_db_model.HotKeyList.query().order(twitter_map_db_model.HotKeyList.hid)
-            for p in q:
-                hot_key_dict[p.text] = p.hid
-            if not hot_key_dict:
-                return -1
-        except Exception, e:
-            return -1
-        else:
-            memcache.add(twitter_map_config.top_7_hotkey_memcache_key, hot_key_dict)
+    try:
+        hot_key_dict = memcache.get(twitter_map_config.top_hot_key_memcache_key)
+        if hot_key_dict is not None:
             return hot_key_dict
-
+        else:
+            hot_key_dict = {}
+            try:
+                q = twitter_map_db_model.HotKeyList.query().order(twitter_map_db_model.HotKeyList.hid)
+                for p in q:
+                    hot_key_dict[p.text] = p.hid
+                if not hot_key_dict:
+                    return -1
+            except Exception, e:
+                return -1
+            else:
+                memcache.add(twitter_map_config.top_hot_key_memcache_key, hot_key_dict)
+                return hot_key_dict
+    except Exception,e:
+        print e
+        return -1
 
 def parseTweet(tweet_text):
     '''
@@ -96,23 +99,29 @@ def putTweetToDataStore(tweet):
         #        tweet_data['coordinates']['coordinates'][0]
         #        #so latitude is the second
         #        tweet_data['coordinates']['coordinates'][1]
-        print tweet.text
+        #print tweet.text
         tweet_ins.text = tweet.text
         hot_key_list = parseTweet(tweet.text)
         tweet_ins.hk = hot_key_list
         if tweet.coordinates is not None:
-            tweet_ins.location = ndb.GeoPt(float(tweet.coordinates.coordinates[1]),
-                                           float(tweet.coordinates.coordinates[0]))
+            try:
+                tweet_ins.location = ndb.GeoPt(float(tweet.coordinates.coordinates[1]),
+                                            float(tweet.coordinates.coordinates[0]))
+            except Exception,e:
+                pseudo_location = creatGeoWithinUSA()
+                tweet_ins.location = ndb.GeoPt(pseudo_location[1], pseudo_location[0])
         else:
             pseudo_location = creatGeoWithinUSA()
             tweet_ins.location = ndb.GeoPt(pseudo_location[1], pseudo_location[0])
-        print tweet_ins.location
+        #print tweet_ins.location
         tweet_ins.tid = tweet.id
         tweet_ins.uid = tweet.user.id
         tweet_ins.uname = tweet.user.screen_name
         tweet_ins.date = tweet.created_at
-        print tweet_ins.put()
-        return 0
+
+        #due to the limitation of the google App Engine,every time you call the database related function you need to
+        #catch the error in case you have reached the limit
+        tweet_ins.put()
     except Exception, e:
         print e
         return -1
@@ -130,6 +139,8 @@ def getAndSaveTweet(count, page):
                                    lang="en").pages(page):
             for tweet in single_page:
                 res = putTweetToDataStore(tweet)
+                if res ==-1:
+                    raise ValueError(res)
     except Exception,e:
         print e
         print "have reached the rate limit"
@@ -138,5 +149,66 @@ def getAndSaveTweet(count, page):
 
 
 def reConstructHotKeyInfo():
-    pass
+    '''
+    This function takes out all the keyword list of the tweets to calculate the new key word list
+    '''
+    global_dict = {}
+    sorted_dict = []
+    try:
+        #at first we flush the memcache
+        hot_key_dict = memcache.get(twitter_map_config.top_hot_key_memcache_key)
+        if hot_key_dict is not None:
+            memcache.delete(twitter_map_config.top_hot_key_memcache_key)
+    except Exception,e:
+        print "operation memcache error"
+        print e
+        return -1;
 
+    #then we clear the keyword list
+    try:
+        ndb.delete_multi(twitter_map_db_model.HotKeyList.query().fetch(keys_only=True))
+    except Exception,e:
+        print "database deletion error"
+        print e
+        return -1
+
+    # Now we take out every ele in the datastore and construct the keyword
+    try:
+        q = ndb.gql("SELECT hk FROM Tweet")
+        global_dict = {}
+        for p in q:
+            if global_dict.has_key(p.hk[0]):
+                global_dict[p.hk[0]] = global_dict[p.hk[0]]+1
+            else:
+                global_dict[p.hk[0]] = 1
+        #print global_dict
+        sorted_dict = sorted(global_dict.items(),key=lambda x:x[1])
+        real_len = len(sorted_dict) and twitter_map_config.key_word_length>len(sorted_dict) or twitter_map_config.key_word_length
+        sorted_dict = sorted_dict[len(sorted_dict)-real_len:len(sorted_dict)]
+        #sorted_dict
+    except Exception,e:
+        print "database read error"
+        print e
+        return -1
+    if construHotKeyList(sorted_dict) != -1:
+        pass
+    else:
+        print "construct new key list error"
+        return -1
+    return 0
+
+def construHotKeyList(list):
+    try:
+        hot_key_data = list
+        count = 0
+        for ele in hot_key_data:
+            hot_key_ins = twitter_map_db_model.HotKeyList()
+            hot_key_ins.hid = count
+            hot_key_ins.text = ele[0]
+            hot_key_ins.count = ele[1]
+            hot_key_ins.put()
+            count = count+1
+    except Exception,e:
+        print "database operation error"
+        return -1
+    return 0
