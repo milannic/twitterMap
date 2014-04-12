@@ -35,23 +35,19 @@ class PostSingleTweet(webapp2.RequestHandler):
         try:
             tweet_data = json.loads(self.request.body)
             tweet_ins = twitter_map_db_model.Tweet()
-    #        print tweet_data['created_at']
-    #        print tweet_data['text']
-    #        print tweet_data['id']
-    #        print tweet_data['user']['id']
-    #        print tweet_data['user']['screen_name']
             #so longitude is at first
-    #        print tweet_data['coordinates']['coordinates'][0]
+    #        tweet_data['coordinates']['coordinates'][0]
     #        #so latitude is the second
-    #        print tweet_data['coordinates']['coordinates'][1]
+    #        tweet_data['coordinates']['coordinates'][1]
             tweet_ins.text = tweet_data['text']
-            tweet_ins.hk0 = 0
-            tweet_ins.hk1 = 0
-            tweet_ins.hk2 = 0
-            tweet_ins.hk3 = 0
-            tweet_ins.hk4 = 0
-            tweet_ins.hk5 = 0
-            tweet_ins.hk6 = 0
+            hot_key_list = twitter_map_util.parseTweet(tweet_data['text'])
+            tweet_ins.hk0 = hot_key_list[0]
+            tweet_ins.hk1 = hot_key_list[1]
+            tweet_ins.hk2 = hot_key_list[2]
+            tweet_ins.hk3 = hot_key_list[3]
+            tweet_ins.hk4 = hot_key_list[4]
+            tweet_ins.hk5 = hot_key_list[5]
+            tweet_ins.hk6 = hot_key_list[6]
             tweet_ins.location = ndb.GeoPt(float(tweet_data['coordinates']['coordinates'][1]),float(tweet_data['coordinates']['coordinates'][0]))
             tweet_ins.tid = int(tweet_data['id'])
             tweet_ins.uid = int(tweet_data['user']['id'])
@@ -62,7 +58,7 @@ class PostSingleTweet(webapp2.RequestHandler):
             self.response.write("haha")
         except Exception,e:
             self.response.write(e)
-            #self.response.write("server internal error")
+
 
 class GetTweetFromDatastore(webapp2.RequestHandler):
     def get(self):
@@ -138,11 +134,11 @@ class PostTopHotKey(webapp2.RequestHandler):
             hot_key_ins = twitter_map_db_model.HotKeyList()
             print hot_key_data
             count = 0
-            for key in hot_key_data:
+            for ele in hot_key_data:
                 hot_key_ins = twitter_map_db_model.HotKeyList()
                 hot_key_ins.hid = count
-                hot_key_ins.text = key
-                hot_key_ins.count = hot_key_data[key]
+                hot_key_ins.text = ele[0]
+                hot_key_ins.count = ele[1]
                 hot_key_ins.put()
                 count = count+1
             self.response.write("haha")
@@ -158,3 +154,10 @@ class DeleteAllTweetEntries(webapp2.RequestHandler):
             self.response.write('succeed')
         except Exception,e:
             self.response.write(e)
+
+
+class TestAutoGrabTweets(webapp2.RequestHandler):
+    def get(self):
+        res=twitter_map_util.getAndSaveTweet(100,1)
+        self.response.write(res)
+

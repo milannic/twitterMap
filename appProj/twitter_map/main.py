@@ -61,5 +61,6 @@ app = webapp2.WSGIApplication([
     ('/testposttweet',twitter_map_admin_test.PostSingleTweet),
     ('/testgetdatastore',twitter_map_admin_test.GetTweetFromDatastore),
     ('/testposthotkey',twitter_map_admin_test.PostTopHotKey),
-    ('/testcleardb',twitter_map_admin_test.DeleteAllTweetEntries)
+    ('/testcleardb',twitter_map_admin_test.DeleteAllTweetEntries),
+    ('/testautograb',twitter_map_admin_test.TestAutoGrabTweets)
 ], debug=True)

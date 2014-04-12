@@ -76,11 +76,11 @@ else:
     real_threshold = sorted_dict[len(sorted_dict)-threshold][1]
 
 
-for key in global_dict.keys():
-    if global_dict[key] < real_threshold:
-        global_dict.pop(key,None)
+#for key in global_dict.keys():
+#    if global_dict[key] < real_threshold:
+#        global_dict.pop(key,None)
 
 if output:
     with open('./output/twitter_dict_count_%d'%(threshold),'w') as output_json:
-        json.dump(global_dict,output_json)
+        json.dump(sorted_dict[len(sorted_dict)-threshold:len(sorted_dict)],output_json)
 

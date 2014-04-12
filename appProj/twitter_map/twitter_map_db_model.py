@@ -22,12 +22,6 @@ class Tweet(ndb.Model):
     hk5 = ndb.IntegerProperty()
     hk6 = ndb.IntegerProperty()
 
-class HotKeywordsCount(ndb.Model):
-    """
-    We store a hashmap in the datastore
-    """
-    count = ndb.IntegerProperty()
-    text = ndb.StringProperty()
 
 
 class HotKeyList(ndb.Model):
