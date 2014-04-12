@@ -39,7 +39,7 @@ class PostSingleTweet(webapp2.RequestHandler):
     #        tweet_data['coordinates']['coordinates'][0]
     #        #so latitude is the second
     #        tweet_data['coordinates']['coordinates'][1]
-            tweet_ins.text = tweet_data['text']
+            tweet_ins.text = tweet_data['text'].encode('utf-8')
             hot_key_list = twitter_map_util.parseTweet(tweet_data['text'])
             tweet_ins.hk = hot_key_list
             tweet_ins.location = ndb.GeoPt(float(tweet_data['coordinates']['coordinates'][1]),float(tweet_data['coordinates']['coordinates'][0]))
@@ -124,7 +124,7 @@ class PostTopHotKey(webapp2.RequestHandler):
         try:
             hot_key_data = json.loads(self.request.body)
             hot_key_ins = twitter_map_db_model.HotKeyList()
-            print hot_key_data
+            #print hot_key_data
             count = 0
             for ele in hot_key_data:
                 hot_key_ins = twitter_map_db_model.HotKeyList()
@@ -153,3 +153,32 @@ class TestAutoGrabTweets(webapp2.RequestHandler):
         res=twitter_map_util.getAndSaveTweet(100,1)
         self.response.write(res)
 
+
+class TestReconsKeyWord(webapp2.RequestHandler):
+    def get(self):
+        res = twitter_map_util.reConstructHotKeyInfo()
+        self.response.write(res)
+
+class TestGql(webapp2.RequestHandler):
+    def get(self):
+        q = ndb.gql("SELECT hk FROM Tweet")
+        global_dict = {}
+        for p in q:
+            if global_dict.has_key(p.hk[0]):
+                global_dict[p.hk[0]] = global_dict[p.hk[0]]+1
+            else:
+                global_dict[p.hk[0]] = 1
+        #print global_dict
+        sorted_dict = sorted(global_dict.items(),key=lambda x:x[1])
+        real_len = len(sorted_dict) and twitter_map_config.key_word_length>len(sorted_dict) or twitter_map_config.key_word_length
+        sorted_dict = sorted_dict[len(sorted_dict)-real_len:len(sorted_dict)]
+        print sorted_dict
+        self.response.write("haha")
+
+class TestReconstruct(webapp2.RequestHandler):
+    def get(self):
+        res = twitter_map_util.reConstructHotKeyInfo()
+        if res==-1:
+            self.response.write("error")
+        else:
+            self.response.write("succeed")
