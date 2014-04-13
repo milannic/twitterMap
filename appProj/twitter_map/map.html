@@ -3,6 +3,11 @@
   <head>
     <meta charset="utf-8">
     <title>TwitterMap</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
     <style>
       html, body, #map-canvas {
         height: 100%;
@@ -23,15 +28,17 @@
         left: 70%;
         margin-left: -180px;
         z-index: 5;
-        background-color: #fff;
         padding: 5px;
-        border: 1px solid #999;
+      }
+      #map-canvas {
+          max-width: none;
       }
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=visualization"></script>
     <script>
 
 var map, pointarray, heatmap;
+var marker = [];
 
 var tweetsArray = {{tweets|safe}}
 
@@ -43,7 +50,7 @@ for(var i=0; i<tweetsArray.length; i++) {
 
 function initialize() {
   var mapOptions = {
-    zoom: 3,
+    zoom: 5,
     center: new google.maps.LatLng(40.579973, -74.045534),
     mapTypeId: google.maps.MapTypeId.SATELLITE
   };
@@ -54,14 +61,62 @@ function initialize() {
   var pointArray = new google.maps.MVCArray(tweetData);
 
   heatmap = new google.maps.visualization.HeatmapLayer({
-    data: pointArray
+    data: pointArray,
+    radius: 20
   });
 
   heatmap.setMap(map);
+
+  //var marker = [];
+  for(var i=0; i<tweetsArray.length; i++) {
+    var tweet = JSON.parse(tweetsArray[i]);
+    var markerOptions = {
+      map: map,
+      position: new google.maps.LatLng(tweet.location.lat, tweet.location.lon),
+      uname: tweet.uname,
+      text: tweet.text,
+      date: tweet.date,
+      icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            fillOpacity: 1.0,
+            fillColor: '3498db',
+            strokeOpacity: 1.0,
+            strokeColor: '3498db',
+            strokeWeight: 0,
+            scale: 3 //pixels
+      }
+    };
+    marker[i] = new google.maps.Marker(markerOptions);
+  }
+  var infowindow = new google.maps.InfoWindow({
+      content: ''
+  });
+  for(var i=0; i<marker.length; i++) {
+    google.maps.event.addListener(marker[i], 'click', function() {
+      var tweetContent = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+'<div id="bodyContent">'+
+      '<p><b>'+this.uname+'</b>&nbsp;&nbsp;'+this.text+
+      '&nbsp;&nbsp;'+this.date+'</p>'+'</div>'+
+      '</div>';
+      var windowOptions = {
+        content: tweetContent,
+        maxWidth: 400
+      };
+      infowindow.setOptions(windowOptions);
+      infowindow.open(map,this);
+    });
+  }
 }
 
 function reloadData(newPoints) {
     heatmap.setData(newPoints);
+}
+
+function togglePointmap() {
+    for(var i=0; i<marker.length; i++) {
+        marker[i].setMap(marker[i].getMap() ? null : map);
+    }
 }
 
 function toggleHeatmap() {
@@ -98,22 +153,37 @@ function changeOpacity() {
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
+$(function() {
+    var keywords_dict = {{keywords_dict|safe}}
+    var available_keywords = [];
+    for(var key in keywords_dict) {
+        available_keywords[available_keywords.length] = {
+            value: key,
+            desc: keywords_dict[key]
+        };
+    }
+    $( "#searchfield" ).autocomplete({
+      source: available_keywords,
+    })
+    .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+        return $( "<li>" )
+        .append("<a>" + item.value + "&nbsp;&nbsp;" + item.desc + "</a>")
+        .appendTo( ul );
+    };
+});
     </script>
   </head>
 
   <body>
     <div id="search-bar">
-        <form action="/viewmap" method="post">
-          <input type="search" class="search" name="keyword" placeholder="Key word" value={{keyword}}>
+        <form action="/viewmap" method="get">
+          <input id="searchfield" type="text" class="search" name="keyword" placeholder="Key word" value={{keyword}}>
           <button>Search</button>
         </form>
     </div>
     <div id="panel">
-
+      <button onclick="togglePointmap()">Toggle Pointmap</button>
       <button onclick="toggleHeatmap()">Toggle Heatmap</button>
-      <button onclick="changeGradient()">Change gradient</button>
-      <button onclick="changeRadius()">Change radius</button>
-      <button onclick="changeOpacity()">Change opacity</button>
     </div>
     <div id="map-canvas"></div>
   </body>
