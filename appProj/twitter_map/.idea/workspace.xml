@@ -53,16 +53,6 @@
             <state line="84" column="8" selection-start="2871" selection-end="2871" vertical-scroll-proportion="0.0" vertical-offset="945" max-vertical-offset="2490">
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
-                <marker date="1397341903000" expanded="true" signature="819:1903" placeholder="..." />
-                <marker date="1397341903000" expanded="true" signature="840:1903" placeholder="..." />
-                <marker date="1397341903000" expanded="true" signature="2445:3223" placeholder="..." />
-                <marker date="1397341903000" expanded="true" signature="2551:3223" placeholder="..." />
-                <marker date="1397341903000" expanded="true" signature="3270:3928" placeholder="..." />
-                <marker date="1397341903000" expanded="true" signature="3291:3928" placeholder="..." />
-                <marker date="1397341903000" expanded="true" signature="3983:4208" placeholder="..." />
-                <marker date="1397341903000" expanded="true" signature="4002:4208" placeholder="..." />
-                <marker date="1397341903000" expanded="true" signature="4260:4364" placeholder="..." />
-                <marker date="1397341903000" expanded="true" signature="4279:4364" placeholder="..." />
                 <marker date="1397341903000" expanded="true" signature="4603:4623" placeholder="SELECT hk FR..Tweet..." />
               </folding>
             </state>
@@ -572,16 +562,6 @@
         <state line="80" column="54" selection-start="2769" selection-end="2769" vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="2475">
           <folding>
             <element signature="e#0#25#0" expanded="true" />
-            <marker date="1397341903000" expanded="true" signature="819:1903" placeholder="..." />
-            <marker date="1397341903000" expanded="true" signature="840:1903" placeholder="..." />
-            <marker date="1397341903000" expanded="true" signature="2445:3223" placeholder="..." />
-            <marker date="1397341903000" expanded="true" signature="2551:3223" placeholder="..." />
-            <marker date="1397341903000" expanded="true" signature="3270:3928" placeholder="..." />
-            <marker date="1397341903000" expanded="true" signature="3291:3928" placeholder="..." />
-            <marker date="1397341903000" expanded="true" signature="3983:4208" placeholder="..." />
-            <marker date="1397341903000" expanded="true" signature="4002:4208" placeholder="..." />
-            <marker date="1397341903000" expanded="true" signature="4260:4364" placeholder="..." />
-            <marker date="1397341903000" expanded="true" signature="4279:4364" placeholder="..." />
             <marker date="1397341903000" expanded="true" signature="4603:4623" placeholder="SELECT hk FR..Tweet..." />
           </folding>
         </state>
@@ -634,32 +614,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/twitter_map_admin_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="84" column="8" selection-start="2871" selection-end="2871" vertical-scroll-proportion="0.0" vertical-offset="945" max-vertical-offset="2490">
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-            <marker date="1397341903000" expanded="true" signature="819:1903" placeholder="..." />
-            <marker date="1397341903000" expanded="true" signature="840:1903" placeholder="..." />
-            <marker date="1397341903000" expanded="true" signature="2445:3223" placeholder="..." />
-            <marker date="1397341903000" expanded="true" signature="2551:3223" placeholder="..." />
-            <marker date="1397341903000" expanded="true" signature="3270:3928" placeholder="..." />
-            <marker date="1397341903000" expanded="true" signature="3291:3928" placeholder="..." />
-            <marker date="1397341903000" expanded="true" signature="3983:4208" placeholder="..." />
-            <marker date="1397341903000" expanded="true" signature="4002:4208" placeholder="..." />
-            <marker date="1397341903000" expanded="true" signature="4260:4364" placeholder="..." />
-            <marker date="1397341903000" expanded="true" signature="4279:4364" placeholder="..." />
-            <marker date="1397341903000" expanded="true" signature="4603:4623" placeholder="SELECT hk FR..Tweet..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/twitter_map_util.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="225" column="35" selection-start="8821" selection-end="8821" vertical-scroll-proportion="0.0" vertical-offset="3146" max-vertical-offset="3735">
           <folding>
             <element signature="e#95#108#0" expanded="true" />
             <marker date="1397348163000" expanded="true" signature="7084:7104" placeholder="SELECT hk FR..Tweet..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/twitter_map_admin_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="84" column="8" selection-start="2871" selection-end="2871" vertical-scroll-proportion="0.0" vertical-offset="945" max-vertical-offset="2490">
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+            <marker date="1397341903000" expanded="true" signature="4603:4623" placeholder="SELECT hk FR..Tweet..." />
           </folding>
         </state>
       </provider>
