@@ -12,10 +12,10 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/twitter_map$twitter_map.coverage" NAME="twitter_map Coverage Results" MODIFIED="1397324937677" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/twitter_map$python_json_post_test.coverage" NAME="python_json_post_test Coverage Results" MODIFIED="1397325416426" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../test" />
+    <SUITE FILE_PATH="coverage/twitter_map$twitter_map.coverage" NAME="twitter_map Coverage Results" MODIFIED="1397325341252" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/twitter_map$python_json_parse_test.coverage" NAME="python_json_parse_test Coverage Results" MODIFIED="1397280853277" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../test" />
     <SUITE FILE_PATH="coverage/twitter_map$python_json_post_hot_key.coverage" NAME="python_json_post_hot_key Coverage Results" MODIFIED="1397281783539" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../test" />
+    <SUITE FILE_PATH="coverage/twitter_map$python_json_post_test.coverage" NAME="python_json_post_test Coverage Results" MODIFIED="1397291256017" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../test" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -29,10 +29,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="tweets.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tweets.html">
+      <file leaf-file-name="twitter_map_admin_test.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/twitter_map_admin_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="27" selection-start="319" selection-end="319" vertical-scroll-proportion="-8.75" vertical-offset="0" max-vertical-offset="450">
+            <state line="183" column="40" selection-start="6308" selection-end="6308" vertical-scroll-proportion="0.0" vertical-offset="2745" max-vertical-offset="2850">
               <folding />
             </state>
           </provider>
@@ -41,8 +41,7 @@
       <file leaf-file-name="map.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/map.html">
           <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-            <state line="12" column="27" selection-start="252" selection-end="252" vertical-scroll-proportion="54.041668" vertical-offset="1477" max-vertical-offset="1875">
+            <state line="12" column="27" selection-start="252" selection-end="252" vertical-scroll-proportion="0.0" vertical-offset="1477" max-vertical-offset="1875">
               <folding />
             </state>
           </provider>
@@ -51,7 +50,7 @@
       <file leaf-file-name="main.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="66" column="16" selection-start="2342" selection-end="2351" vertical-scroll-proportion="0.7156398" vertical-offset="673" max-vertical-offset="1095">
+            <state line="46" column="0" selection-start="1477" selection-end="1477" vertical-scroll-proportion="0.39296636" vertical-offset="418" max-vertical-offset="1095">
               <folding />
             </state>
           </provider>
@@ -60,7 +59,7 @@
       <file leaf-file-name="python_json_post_test.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../test/python_json_post_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="27" selection-start="1152" selection-end="1152" vertical-scroll-proportion="0.0" vertical-offset="268" max-vertical-offset="855">
+            <state line="46" column="27" selection-start="1152" selection-end="1152" vertical-scroll-proportion="0.0" vertical-offset="690" max-vertical-offset="915">
               <folding />
             </state>
           </provider>
@@ -70,30 +69,26 @@
         <entry file="file://$PROJECT_DIR$/twitter_map_db_model.py">
           <provider selected="true" editor-type-id="text-editor">
             <state line="8" column="25" selection-start="225" selection-end="225" vertical-scroll-proportion="0.0" vertical-offset="58" max-vertical-offset="480">
-=======
-            <state line="7" column="21" selection-start="154" selection-end="154" vertical-scroll-proportion="-4.375" vertical-offset="0" max-vertical-offset="1875">
->>>>>>> bc93d6f0995aa8a126f04f99f15969b2eda8a785
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="twitter_map_admin_test.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/twitter_map_admin_test.py">
+      <file leaf-file-name="twitter_map_util.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/twitter_map_util.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="74" column="31" selection-start="2497" selection-end="2497" vertical-scroll-proportion="2.224449" vertical-offset="0" max-vertical-offset="2850">
+            <state line="168" column="65" selection-start="6845" selection-end="6845" vertical-scroll-proportion="0.0" vertical-offset="2520" max-vertical-offset="3285">
               <folding>
-                <element signature="e#0#25#0" expanded="true" />
-                <marker date="1397330077000" expanded="true" signature="5472:5492" placeholder="SELECT hk FR..Tweet..." />
+                <marker date="1397329289000" expanded="true" signature="7072:7092" placeholder="SELECT hk FR..Tweet..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="python_json_post_hot_key.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../test/python_json_post_hot_key.py">
+      <file leaf-file-name="twitter_map_config.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/twitter_map_config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="0" selection-start="513" selection-end="513" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540">
+            <state line="10" column="30" selection-start="498" selection-end="498" vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="255">
               <folding />
             </state>
           </provider>
@@ -114,14 +109,17 @@
         <option value="$PROJECT_DIR$/tweets.html" />
         <option value="$PROJECT_DIR$/map.html" />
         <option value="$PROJECT_DIR$/twitter_map_db_model.py" />
+        <option value="$PROJECT_DIR$/twitter_map_config.py" />
         <option value="$PROJECT_DIR$/twitter_map_admin_test.py" />
+        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/twitter_map_util.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="22" />
-    <option name="width" value="1440" />
-    <option name="height" value="874" />
+    <option name="width" value="1280" />
+    <option name="height" value="774" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -212,13 +210,14 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="FullScreen" value="false" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
       <console-settings />
     </option>
   </component>
-  <component name="RunManager" selected="Python.python_json_post_test">
+  <component name="RunManager" selected="App Engine server.twitter_map">
     <configuration default="false" name="python_json_parse_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -321,6 +320,23 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
+    <configuration default="true" type="Python.AppEngineServer" factoryName="App Engine server">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="twitter_map" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="host" value="127.0.0.1" />
+      <option name="browserUrl" value="" />
+      <option name="additionalOptions" value="" />
+      <method />
+    </configuration>
     <configuration default="true" type="tests" factoryName="Nosetests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -343,23 +359,6 @@
       <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="Python.AppEngineServer" factoryName="App Engine server">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="twitter_map" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="launchJavascriptDebuger" value="false" />
-      <option name="host" value="127.0.0.1" />
-      <option name="browserUrl" value="" />
-      <option name="additionalOptions" value="" />
-      <method />
-    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -375,6 +374,9 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="" />
       <option name="PARAMETERS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
@@ -398,9 +400,6 @@
       <option name="PUREUNITTEST" value="true" />
       <option name="PARAMS" value="" />
       <option name="USE_PARAM" value="false" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
@@ -503,19 +502,19 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1440" height="874" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="22" width="1280" height="774" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32919255" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32907802" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -540,14 +539,153 @@
     </option>
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/tweets.html">
+    <entry file="file://$PROJECT_DIR$/twitter_map_admin_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="27" selection-start="319" selection-end="319" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="450">
+        <state line="183" column="40" selection-start="6308" selection-end="6308" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2850">
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/map.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="27" selection-start="252" selection-end="252" vertical-scroll-proportion="0.0" vertical-offset="1477" max-vertical-offset="1875">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="0" selection-start="1477" selection-end="1477" vertical-scroll-proportion="0.0" vertical-offset="690" max-vertical-offset="1095">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../test/python_json_post_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="27" selection-start="1152" selection-end="1152" vertical-scroll-proportion="0.0" vertical-offset="690" max-vertical-offset="915">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/twitter_map_db_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="25" selection-start="225" selection-end="225" vertical-scroll-proportion="0.0" vertical-offset="58" max-vertical-offset="480">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/twitter_map_util.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="168" column="65" selection-start="6845" selection-end="6845" vertical-scroll-proportion="0.0" vertical-offset="2520" max-vertical-offset="3285">
+          <folding>
+            <marker date="1397329289000" expanded="true" signature="7072:7092" placeholder="SELECT hk FR..Tweet..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/twitter_map_config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="30" selection-start="498" selection-end="498" vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="255">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/twitter_map_admin_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="183" column="40" selection-start="6308" selection-end="6308" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2850">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/map.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="27" selection-start="252" selection-end="252" vertical-scroll-proportion="0.0" vertical-offset="1477" max-vertical-offset="1875">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="66" column="16" selection-start="2342" selection-end="2351" vertical-scroll-proportion="0.0" vertical-offset="990" max-vertical-offset="1095">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../test/python_json_post_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="27" selection-start="1152" selection-end="1152" vertical-scroll-proportion="0.0" vertical-offset="690" max-vertical-offset="915">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/twitter_map_db_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="25" selection-start="225" selection-end="225" vertical-scroll-proportion="0.0" vertical-offset="58" max-vertical-offset="480">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/twitter_map_util.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="168" column="65" selection-start="6845" selection-end="6845" vertical-scroll-proportion="0.0" vertical-offset="2520" max-vertical-offset="3285">
+          <folding>
+            <marker date="1397329289000" expanded="true" signature="7072:7092" placeholder="SELECT hk FR..Tweet..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/twitter_map_config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="30" selection-start="498" selection-end="498" vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="255">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/twitter_map_admin_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="74" selection-start="1248" selection-end="1248" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2385">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/map.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="27" selection-start="252" selection-end="252" vertical-scroll-proportion="0.0" vertical-offset="779" max-vertical-offset="1875">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../test/python_json_post_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="17" selection-start="601" selection-end="601" vertical-scroll-proportion="0.0" vertical-offset="375" max-vertical-offset="855">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/twitter_map_db_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="31" selection-start="362" selection-end="362" vertical-scroll-proportion="0.0" vertical-offset="195" max-vertical-offset="480">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/twitter_map_util.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="95" column="29" selection-start="4079" selection-end="4079" vertical-scroll-proportion="0.0" vertical-offset="1425" max-vertical-offset="2220">
+          <folding>
+            <marker date="1397329289000" expanded="true" signature="7072:7092" placeholder="SELECT hk FR..Tweet..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tweets.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="8" selection-start="312" selection-end="312" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="375" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/map.html">
@@ -559,11 +697,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/twitter_map_admin_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="54" selection-start="2769" selection-end="2769" vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="2475">
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-            <marker date="1397330077000" expanded="true" signature="5472:5492" placeholder="SELECT hk FR..Tweet..." />
-          </folding>
+        <state line="80" column="12" selection-start="2691" selection-end="2691" vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="2535">
+          <folding />
         </state>
       </provider>
     </entry>
@@ -574,6 +709,11 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../../test/python_json_post_hot_key.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="36" selection-start="641" selection-end="641" vertical-scroll-proportion="0.5859375" vertical-offset="75" max-vertical-offset="600" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../../test/python_json_parse_test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="72" column="38" selection-start="3538" selection-end="3538" vertical-scroll-proportion="0.3987976" vertical-offset="806" max-vertical-offset="1305" />
@@ -581,65 +721,57 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tweets.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="27" selection-start="319" selection-end="319" vertical-scroll-proportion="-8.75" vertical-offset="0" max-vertical-offset="450">
+        <state line="19" column="8" selection-start="382" selection-end="382" vertical-scroll-proportion="0.0" vertical-offset="285" max-vertical-offset="450" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/twitter_map_admin_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="183" column="40" selection-start="6308" selection-end="6308" vertical-scroll-proportion="0.0" vertical-offset="1826" max-vertical-offset="2700">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../../test/python_json_post_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="9" selection-start="447" selection-end="447" vertical-scroll-proportion="0.33742332" vertical-offset="0" max-vertical-offset="855">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/twitter_map_db_model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="42" selection-start="474" selection-end="474" vertical-scroll-proportion="0.46875" vertical-offset="0" max-vertical-offset="512">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="49" selection-start="2006" selection-end="2006" vertical-scroll-proportion="0.6484375" vertical-offset="553" max-vertical-offset="1065">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/twitter_map_util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="7" selection-start="1844" selection-end="1844" vertical-scroll-proportion="-0.76171875" vertical-offset="825" max-vertical-offset="2115">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../test/python_json_post_hot_key.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="0" selection-start="513" selection-end="513" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540">
+        <state line="46" column="27" selection-start="1152" selection-end="1152" vertical-scroll-proportion="0.0" vertical-offset="268" max-vertical-offset="855">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/map.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="21" selection-start="154" selection-end="154" vertical-scroll-proportion="-4.375" vertical-offset="0" max-vertical-offset="1875">
+        <state line="12" column="27" selection-start="252" selection-end="252" vertical-scroll-proportion="0.0" vertical-offset="1477" max-vertical-offset="1875">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/twitter_map_admin_test.py">
+    <entry file="file://$PROJECT_DIR$/twitter_map_config.py">
       <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-        <state line="66" column="16" selection-start="2342" selection-end="2351" vertical-scroll-proportion="0.7156398" vertical-offset="673" max-vertical-offset="1095">
+        <state line="10" column="30" selection-start="498" selection-end="498" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
           <folding />
-=======
-        <state line="74" column="31" selection-start="2497" selection-end="2497" vertical-scroll-proportion="2.224449" vertical-offset="0" max-vertical-offset="2850">
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/twitter_map_db_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="25" selection-start="225" selection-end="225" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="480">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/twitter_map_util.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="168" column="65" selection-start="6845" selection-end="6845" vertical-scroll-proportion="0.0" vertical-offset="1691" max-vertical-offset="3180">
           <folding>
-            <element signature="e#0#25#0" expanded="true" />
-            <marker date="1397330077000" expanded="true" signature="5472:5492" placeholder="SELECT hk FR..Tweet..." />
+            <marker date="1397329289000" expanded="true" signature="7072:7092" placeholder="SELECT hk FR..Tweet..." />
           </folding>
->>>>>>> bc93d6f0995aa8a126f04f99f15969b2eda8a785
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="0" selection-start="1477" selection-end="1477" vertical-scroll-proportion="0.39296636" vertical-offset="418" max-vertical-offset="1095">
+          <folding />
         </state>
       </provider>
     </entry>
