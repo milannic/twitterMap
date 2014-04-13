@@ -5,6 +5,7 @@ import webapp2
 import json
 import os
 import cgi
+import cgitb
 import jinja2
 from google.appengine.ext import ndb
 from google.appengine.ext import db
@@ -15,6 +16,7 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
+cgitb.enable()
 #used for test
 
 
@@ -68,47 +70,21 @@ class GetTweetFromDatastore(webapp2.RequestHandler):
             self.response.write(e)
 
 
-class QueryTweet():
-    @classmethod
-    def getByKeyword(cls,keyword=None):
-        try:
-            if keyword is None:
-                result = twitter_map_db_model.Tweet.query().order(twitter_map_db_model.Tweet.uid)
-            else:
-                result = twitter_map_db_model.Tweet.query(twitter_map_db_model.Tweet.hk == keyword).order(twitter_map_db_model.Tweet.uid)
-            tweets = []
-            for t in result:
-                tweet = {"uid":t.uid, "uname":t.uname, "location":{"lat":t.location.lat, "lon":t.location.lon,}, "date":t.date.strftime("%Y-%m-%d %H:%M:%S"), "text":t.text,
-                             "hk":t.hk}
-                tweets.append(json.dumps(tweet))
-            return tweets
-
-        except Exception, e:
-            print e
-
-
 class MapHandler(webapp2.RequestHandler):
     def __init__(self, request, response):
         self.initialize(request, response)
 
     def get(self):
         try:
-            tweets = QueryTweet.getByKeyword(None)
-            template_values = {
-                'tweets': tweets,
-            }
-            template = JINJA_ENVIRONMENT.get_template('map.html')
-            self.response.write(template.render(template_values))
-
-        except Exception, e:
-            self.response.write(e)
-
-    def post(self):
-        keyword = cgi.escape(self.request.get('keyword'))
-        try:
-            tweets = QueryTweet.getByKeyword(keyword)
+            form = cgi.FieldStorage()
+            keyword = ""
+            if "keyword" in form:
+                keyword = cgi.escape(form.getvalue('keyword'))
+            tweets = twitter_map_util.getTweetByKeyword(keyword)
+            keywords_dict = json.dumps(twitter_map_util.getHotKeyDict())
             template_values = {
                 'keyword': keyword,
+                'keywords_dict': keywords_dict,
                 'tweets': tweets,
             }
             template = JINJA_ENVIRONMENT.get_template('map.html')

@@ -12,6 +12,19 @@ indexes:
 
 - kind: Tweet
   properties:
+  - name: date
+  - name: location
+  - name: tid
+
+- kind: Tweet
+  properties:
+  - name: hk
+  - name: date
+  - name: location
+  - name: tid
+
+- kind: Tweet
+  properties:
   - name: hk
   - name: uid
 

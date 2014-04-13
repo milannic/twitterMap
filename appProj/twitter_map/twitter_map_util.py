@@ -10,6 +10,7 @@ from  google.appengine.api import memcache
 from google.appengine.ext import ndb
 import random
 import twitter_map_db_model
+import json
 from datetime import datetime
 
 stop_word_list = ['i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', 'your', 'yours', 'yourself',
@@ -212,3 +213,32 @@ def construHotKeyList(list):
         print "database operation error"
         return -1
     return 0
+
+def getTweetByKeyword(keyword):
+    try:
+        if keyword == "":
+            result = twitter_map_db_model.Tweet.query()
+        else:
+            result = twitter_map_db_model.Tweet.query(twitter_map_db_model.Tweet.hk == keyword)
+        tweets = []
+        for t in result:
+            tweet = {"uid":t.uid, "uname":t.uname, "tid":t.tid, "location":{"lat":t.location.lat, "lon":t.location.lon,}, "date":t.date.strftime("%Y-%m-%d %H:%M:%S"), "text":t.text,
+                         "hk":t.hk}
+            tweets.append(json.dumps(tweet))
+        return tweets
+
+    except Exception, e:
+        print e
+
+def getTweetByID(tid):
+    try:
+        result = twitter_map_db_model.Tweet.query(twitter_map_db_model.Tweet.tid == tid)
+        tweets = []
+        for t in result:
+            tweet = {"uid":t.uid, "uname":t.uname, "tid":t.tid, "location":{"lat":t.location.lat, "lon":t.location.lon,}, "date":t.date.strftime("%Y-%m-%d %H:%M:%S"), "text":t.text,
+                         "hk":t.hk}
+            tweets.append(json.dumps(tweet))
+        return tweets
+
+    except Exception, e:
+        print e
