@@ -7,129 +7,125 @@
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-
-    <style>
-      html, body, #map-canvas {
-        height: 100%;
-        margin: 0px;
-        padding: 0px
-      }
-      #search-bar {
-        position: absolute;
-        top: 5px;
-        left: 30%;
-        margin-left: -180px;
-        z-index: 5;
-        padding: 5px;
-      }
-      #panel {
-        position: absolute;
-        top: 5px;
-        left: 70%;
-        margin-left: -180px;
-        z-index: 5;
-        padding: 5px;
-      }
-      #chart_div {
-          margin-left:auto;
-          margin-right:auto;
-          position: absolute;
-          bottom: 5px;
-          left: 20%;
-          width: 900px;
-          height: 150px;
-      }
-      #map-canvas {
-          max-width: none;
-      }
-    </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=visualization"></script>
     <script src="https://www.google.com/jsapi"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+
     <script>
 
-var map, pointarray, heatmap;
-var marker = [];
+var map, heatmap, chart;
+var markers = [];
 
 var tweetsArray = {{tweets|safe}}
 
-var tweetData = [];
-for(var i=0; i<tweetsArray.length; i++) {
-    var tweet = JSON.parse(tweetsArray[i]);
-    tweetData[i] = new google.maps.LatLng(tweet.location.lat, tweet.location.lon);
+function setHeatmapPointArray(keyword) {
+    var tweetPoint = [];
+    for(var i=0; i<tweetsArray.length; i++) {
+        var tweet = JSON.parse(tweetsArray[i]);
+        if(keyword == "" || tweet.hk.indexOf(keyword) >= 0) {
+            tweetPoint.push(new google.maps.LatLng(tweet.location.lat, tweet.location.lon));
+        }
+    }
+    var pointArray = new google.maps.MVCArray(tweetPoint);
+    return pointArray;
+}
+
+function setMarkerPointArray() {
+    for(var i=0; i<tweetsArray.length; i++) {
+        var tweet = JSON.parse(tweetsArray[i]);
+        var markerOptions = {
+          map: map,
+          position: new google.maps.LatLng(tweet.location.lat, tweet.location.lon),
+          uname: tweet.uname,
+          uid: tweet.uid,
+          text: tweet.text,
+          date: new Date(tweet.date).toLocaleString(),
+          icon: {
+                path: google.maps.SymbolPath.CIRCLE,
+                fillOpacity: 1.0,
+                fillColor: '3498db',
+                strokeOpacity: 1.0,
+                strokeColor: '3498db',
+                strokeWeight: 0,
+                scale: 3 //pixels
+          }
+        };
+        markers.push(new google.maps.Marker(markerOptions));
+    }
+    var infowindow = new google.maps.InfoWindow({
+        content: ''
+    });
+    for(var i=0; i<markers.length; i++) {
+        google.maps.event.addListener(markers[i], 'click', function() {
+          var tweetContent = '<div id="content">'+
+          '<div id="siteNotice">'+
+          '</div>'+'<div id="bodyContent">'+
+          '<p><b>'+this.uname+'</b>&nbsp;&nbsp;'+this.text+
+          '&nbsp;&nbsp;'+this.date+'</p>'+'</div>'+
+          '</div>';
+          var windowOptions = {
+            content: tweetContent,
+            maxWidth: 400
+          };
+          infowindow.setOptions(windowOptions);
+          infowindow.open(map,this);
+        });
+    }
+}
+
+function changeMarkerVisibility(keyword) {
+    for(var i=0; i<tweetsArray.length; i++) {
+        var tweet = JSON.parse(tweetsArray[i]);
+        if(keyword == "" || tweet.hk.indexOf(keyword) >= 0) {
+            markers[i].setVisible(true);
+        }
+        else {
+            markers[i].setVisible(false);
+        }
+    }
 }
 
 function initialize() {
+  //Create map
   var mapOptions = {
     zoom: 5,
     center: new google.maps.LatLng(40.579973, -74.045534),
     mapTypeId: google.maps.MapTypeId.SATELLITE
   };
+  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-  map = new google.maps.Map(document.getElementById('map-canvas'),
-      mapOptions);
-
-  var pointArray = new google.maps.MVCArray(tweetData);
-
+  //Create heat map
+  var pointArray = setHeatmapPointArray("");
   heatmap = new google.maps.visualization.HeatmapLayer({
+    map: map,
     data: pointArray,
     radius: 20
   });
 
-  heatmap.setMap(map);
-
-  //var marker = [];
-  for(var i=0; i<tweetsArray.length; i++) {
-    var tweet = JSON.parse(tweetsArray[i]);
-    var markerOptions = {
-      map: map,
-      position: new google.maps.LatLng(tweet.location.lat, tweet.location.lon),
-      uname: tweet.uname,
-      text: tweet.text,
-      date: new Date(tweet.date).toLocaleString(),
-      icon: {
-            path: google.maps.SymbolPath.CIRCLE,
-            fillOpacity: 1.0,
-            fillColor: '3498db',
-            strokeOpacity: 1.0,
-            strokeColor: '3498db',
-            strokeWeight: 0,
-            scale: 3 //pixels
-      }
-    };
-    marker[i] = new google.maps.Marker(markerOptions);
-  }
-  var infowindow = new google.maps.InfoWindow({
-      content: ''
-  });
-  for(var i=0; i<marker.length; i++) {
-    google.maps.event.addListener(marker[i], 'click', function() {
-      var tweetContent = '<div id="content">'+
-      '<div id="siteNotice">'+
-      '</div>'+'<div id="bodyContent">'+
-      '<p><b>'+this.uname+'</b>&nbsp;&nbsp;'+this.text+
-      '&nbsp;&nbsp;'+this.date+'</p>'+'</div>'+
-      '</div>';
-      var windowOptions = {
-        content: tweetContent,
-        maxWidth: 400
-      };
-      infowindow.setOptions(windowOptions);
-      infowindow.open(map,this);
-    });
-  }
+  //Create point map
+  setMarkerPointArray();
 }
 
-function reloadData(newPoints) {
+function reloadHeatmapData(newPoints) {
     heatmap.setData(newPoints);
 }
 
 function togglePointmap() {
-    for(var i=0; i<marker.length; i++) {
-        marker[i].setMap(marker[i].getMap() ? null : map);
+    var opa = document.getElementById("btn-pointmap").style.opacity == 1 ? 0.7 : 1;
+    $("#btn-pointmap").animate({
+        opacity: opa
+    });
+    for(var i=0; i<markers.length; i++) {
+        markers[i].setMap(markers[i].getMap() ? null : map);
     }
 }
 
 function toggleHeatmap() {
+    var opa = document.getElementById("btn-heatmap").style.opacity == 1 ? 0.7 : 1;
+    $("#btn-heatmap").animate({
+        opacity: opa
+    });
   heatmap.setMap(heatmap.getMap() ? null : map);
 }
 
@@ -169,28 +165,71 @@ function ignoreSeconds(date) {
     return date;
 }
 
+//Draw Chart
 google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('date', 'Date');
-        data.addColumn('number', 'Amount');
-        for(var i=0; i<tweetsArray.length; i++) {
-            tweet = JSON.parse(tweetsArray[i]);
+google.setOnLoadCallback(drawChart);
+
+function setChartDataArray(keyword) {
+    //console.log("***");
+    var data = new google.visualization.DataTable();
+    console.log(keyword);
+    data.addColumn('date', 'Date');
+    data.addColumn('number', 'Amount');
+    for(var i=0; i<tweetsArray.length; i++) {
+        tweet = JSON.parse(tweetsArray[i]);
+        if(keyword == "" || tweet.hk.indexOf(keyword) >= 0) {
             data.addRow([new Date(tweet.date), 1]);
         }
-        var result = google.visualization.data.group(
-          data,
-          [{'column': 0, 'modifier': ignoreSeconds, 'type': 'date'}],
-          [{'column': 1, 'aggregation': google.visualization.data.sum, 'type': 'number'}]
-        );
-        var options = {
-          title: 'Twitter trends'
-        };
+    }
+    var formatter = new google.visualization.DateFormat({pattern: "MMM d, yy H:mm:ss"});
+    formatter.format(data, 0);
+    var result = google.visualization.data.group(
+      data,
+      [{'column': 0, 'modifier': ignoreSeconds, 'type': 'date'}],
+      [{'column': 1, 'aggregation': google.visualization.data.sum, 'type': 'number'}]
+    );
+    return result;
+}
 
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-        chart.draw(result, options);
-      }
+function drawChart() {
+    var dataArray = setChartDataArray("");
+    var wrapperOptions = {
+      chartType: 'LineChart',
+      dataTable: dataArray,
+      options: {title: 'Twitter Trends',
+                backgroundColor: { fill:'white' },
+                hAxis: {title: 'Time', textPosition: 'in',
+                    format:'MMM d, yy H:mm', showTextEvery: 1, slantedText: true,
+                    minorGridlines:{color: '#CCC', count: 24}},
+                vAxis: {title: 'Amount'},
+                legend: {position:'none'},
+                explorer: {actions: ['dragToZoom', 'rightClickToReset'], axis: 'horizontal', maxZoomIn: 0.01}
+                },
+      containerId: 'chart-div'
+    };
+    chart = new google.visualization.ChartWrapper(wrapperOptions);
+    chart.draw();
+}
+
+function reloadChartData(newData) {
+    chart.setDataTable(newData);
+    chart.draw();
+}
+
+$(document).ready(function(){
+  $("#btn-slide-up").click(function(){
+    $("#chart-panel").slideToggle("fast","linear",function(){
+        chart.draw();
+    });
+    $("#btn-slide-up").hide();
+    $("#btn-slide-down").show();
+  });
+  $("#btn-slide-down").click(function(){
+    $("#chart-panel").slideToggle("fast","linear");
+    $("#btn-slide-down").hide();
+    $("#btn-slide-up").show();
+  });
+});
 
 $(function() {
     var keywords_dict = {{keywords_dict|safe}}
@@ -202,30 +241,66 @@ $(function() {
         };
     }
     available_keywords.sort(function(a,b){return b.desc- a.desc});
-    $( "#searchfield" ).autocomplete({
+    $( "#search-field" ).autocomplete({
       source: available_keywords
     })
     .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
         return $( "<li>" )
-        .append("<a>" + item.value + "&nbsp;&nbsp;" + item.desc + "</a>")
+        .append("<a><span class='keyword'>"+item.value +"</span><span class='description'>"
+                 + item.desc + " tweets</span></a>")
         .appendTo( ul );
     };
 });
+
+function filterKeyword() {
+    var keyword = document.getElementById("search-field").value;
+    console.log(keyword);
+    var newPointArray = setHeatmapPointArray(keyword);
+    reloadHeatmapData(newPointArray);
+    changeMarkerVisibility(keyword);
+    var newChartData = setChartDataArray(keyword);
+    reloadChartData(newChartData);
+}
+
     </script>
   </head>
 
   <body>
-    <div id="search-bar">
-        <form action="/viewmap" method="get">
-          <input id="searchfield" type="text" class="search" name="keyword" placeholder="Key word" value={{keyword}}>
-          <button>Search</button>
-        </form>
-    </div>
-    <div id="panel">
-      <button onclick="togglePointmap()">Toggle Pointmap</button>
-      <button onclick="toggleHeatmap()">Toggle Heatmap</button>
+    <div id="control-panel">
+      <div class="row">
+          <div id="search-bar" class="col-md-3 col-md-offset-1">
+          <form class="form-inline" onsubmit="javascript:filterKeyword();return false;" >
+            <div class="row">
+              <div id="search-col" class="col-xs-10">
+                <input id="search-field" type="text" class="form-control" name="keyword" placeholder="Key word">
+              </div>
+              <div id="btn-col" class="col-xs-2">
+                <button type="submit" id="search-btn" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+              </div>
+            </div>
+          </form>
+          </div>
+          <div class="col-md-3 col-md-offset-8">
+              <button id="btn-pointmap" class="btn btn-default" style="opacity: 1;" onclick="togglePointmap()">Pointmap</button>
+              <button id="btn-heatmap" class="btn btn-default" style="opacity: 1;" onclick="toggleHeatmap()">Heatmap</button>
+          </div>
+      </div>
     </div>
     <div id="map-canvas"></div>
-    <div id="chart_div"></div>
+    <div id="panel-wrapper">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-10">
+                <button id="btn-slide-up" class="btn btn-default">Show Twitter Trends <span class="glyphicon glyphicon-chevron-up"></span></button>
+                <button id="btn-slide-down" class="btn btn-default">Hide Twitter Trends <span class="glyphicon glyphicon-chevron-down"></span></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="panel" id="chart-panel">
+                <div class="panel-body">
+                    <div id="chart-div"></div>
+                </div>
+            </div>
+        </div>
+    </div>
   </body>
 </html>

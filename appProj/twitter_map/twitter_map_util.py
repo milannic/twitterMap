@@ -230,7 +230,7 @@ def getTweetByKeyword(keyword):
                      "hk":t.hk}
                 tweets.append(json.dumps(tweet))
             if keyword != "":
-                memcache.add('keyword:%s' % keyword, tweets)
+                memcache.add('keyword:%s' % keyword, tweets, 60)
             return tweets
     except Exception, e:
         print e
