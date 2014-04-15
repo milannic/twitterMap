@@ -2,287 +2,56 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>TwitterMap</title>
+    <title>Twitter Map</title>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script type="text/javascript" src="/js/moment.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=visualization"></script>
     <script src="https://www.google.com/jsapi"></script>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script type="text/javascript" src="/js/bootstrap-datetimepicker.js"></script>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/bootstrap-datetimepicker.css" />
     <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
-
-    <script>
-
-var map, heatmap, chart;
-var markers = [];
-
-var tweetsArray = {{tweets|safe}}
-
-function setHeatmapPointArray(keyword) {
-    var tweetPoint = [];
-    for(var i=0; i<tweetsArray.length; i++) {
-        var tweet = JSON.parse(tweetsArray[i]);
-        if(keyword == "" || tweet.hk.indexOf(keyword) >= 0) {
-            tweetPoint.push(new google.maps.LatLng(tweet.location.lat, tweet.location.lon));
-        }
-    }
-    var pointArray = new google.maps.MVCArray(tweetPoint);
-    return pointArray;
-}
-
-function setMarkerPointArray() {
-    for(var i=0; i<tweetsArray.length; i++) {
-        var tweet = JSON.parse(tweetsArray[i]);
-        var markerOptions = {
-          map: map,
-          position: new google.maps.LatLng(tweet.location.lat, tweet.location.lon),
-          uname: tweet.uname,
-          uid: tweet.uid,
-          text: tweet.text,
-          date: new Date(tweet.date).toLocaleString(),
-          icon: {
-                path: google.maps.SymbolPath.CIRCLE,
-                fillOpacity: 1.0,
-                fillColor: '3498db',
-                strokeOpacity: 1.0,
-                strokeColor: '3498db',
-                strokeWeight: 0,
-                scale: 3 //pixels
-          }
-        };
-        markers.push(new google.maps.Marker(markerOptions));
-    }
-    var infowindow = new google.maps.InfoWindow({
-        content: ''
-    });
-    for(var i=0; i<markers.length; i++) {
-        google.maps.event.addListener(markers[i], 'click', function() {
-          var tweetContent = '<div id="content">'+
-          '<div id="siteNotice">'+
-          '</div>'+'<div id="bodyContent">'+
-          '<p><b>'+this.uname+'</b>&nbsp;&nbsp;'+this.text+
-          '&nbsp;&nbsp;'+this.date+'</p>'+'</div>'+
-          '</div>';
-          var windowOptions = {
-            content: tweetContent,
-            maxWidth: 400
-          };
-          infowindow.setOptions(windowOptions);
-          infowindow.open(map,this);
-        });
-    }
-}
-
-function changeMarkerVisibility(keyword) {
-    for(var i=0; i<tweetsArray.length; i++) {
-        var tweet = JSON.parse(tweetsArray[i]);
-        if(keyword == "" || tweet.hk.indexOf(keyword) >= 0) {
-            markers[i].setVisible(true);
-        }
-        else {
-            markers[i].setVisible(false);
-        }
-    }
-}
-
-function initialize() {
-  //Create map
-  var mapOptions = {
-    zoom: 5,
-    center: new google.maps.LatLng(40.579973, -74.045534),
-    mapTypeId: google.maps.MapTypeId.SATELLITE
-  };
-  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-  //Create heat map
-  var pointArray = setHeatmapPointArray("");
-  heatmap = new google.maps.visualization.HeatmapLayer({
-    map: map,
-    data: pointArray,
-    radius: 20
-  });
-
-  //Create point map
-  setMarkerPointArray();
-}
-
-function reloadHeatmapData(newPoints) {
-    heatmap.setData(newPoints);
-}
-
-function togglePointmap() {
-    var opa = document.getElementById("btn-pointmap").style.opacity == 1 ? 0.7 : 1;
-    $("#btn-pointmap").animate({
-        opacity: opa
-    });
-    for(var i=0; i<markers.length; i++) {
-        markers[i].setMap(markers[i].getMap() ? null : map);
-    }
-}
-
-function toggleHeatmap() {
-    var opa = document.getElementById("btn-heatmap").style.opacity == 1 ? 0.7 : 1;
-    $("#btn-heatmap").animate({
-        opacity: opa
-    });
-  heatmap.setMap(heatmap.getMap() ? null : map);
-}
-
-function changeGradient() {
-  var gradient = [
-    'rgba(0, 255, 255, 0)',
-    'rgba(0, 255, 255, 1)',
-    'rgba(0, 191, 255, 1)',
-    'rgba(0, 127, 255, 1)',
-    'rgba(0, 63, 255, 1)',
-    'rgba(0, 0, 255, 1)',
-    'rgba(0, 0, 223, 1)',
-    'rgba(0, 0, 191, 1)',
-    'rgba(0, 0, 159, 1)',
-    'rgba(0, 0, 127, 1)',
-    'rgba(63, 0, 91, 1)',
-    'rgba(127, 0, 63, 1)',
-    'rgba(191, 0, 31, 1)',
-    'rgba(255, 0, 0, 1)'
-  ]
-  heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
-}
-
-function changeRadius() {
-  heatmap.set('radius', heatmap.get('radius') ? null : 20);
-}
-
-function changeOpacity() {
-  heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
-}
-
-google.maps.event.addDomListener(window, 'load', initialize);
-
-
-function ignoreSeconds(date) {
-    date.setUTCSeconds(0);
-    return date;
-}
-
-//Draw Chart
-google.load("visualization", "1", {packages:["corechart"]});
-google.setOnLoadCallback(drawChart);
-
-function setChartDataArray(keyword) {
-    //console.log("***");
-    var data = new google.visualization.DataTable();
-    console.log(keyword);
-    data.addColumn('date', 'Date');
-    data.addColumn('number', 'Amount');
-    for(var i=0; i<tweetsArray.length; i++) {
-        tweet = JSON.parse(tweetsArray[i]);
-        if(keyword == "" || tweet.hk.indexOf(keyword) >= 0) {
-            data.addRow([new Date(tweet.date), 1]);
-        }
-    }
-    var formatter = new google.visualization.DateFormat({pattern: "MMM d, yy H:mm:ss"});
-    formatter.format(data, 0);
-    var result = google.visualization.data.group(
-      data,
-      [{'column': 0, 'modifier': ignoreSeconds, 'type': 'date'}],
-      [{'column': 1, 'aggregation': google.visualization.data.sum, 'type': 'number'}]
-    );
-    return result;
-}
-
-function drawChart() {
-    var dataArray = setChartDataArray("");
-    var wrapperOptions = {
-      chartType: 'LineChart',
-      dataTable: dataArray,
-      options: {title: 'Twitter Trends',
-                backgroundColor: { fill:'white' },
-                hAxis: {title: 'Time', textPosition: 'in',
-                    format:'MMM d, yy H:mm', showTextEvery: 1, slantedText: true,
-                    minorGridlines:{color: '#CCC', count: 24}},
-                vAxis: {title: 'Amount'},
-                legend: {position:'none'},
-                explorer: {actions: ['dragToZoom', 'rightClickToReset'], axis: 'horizontal', maxZoomIn: 0.01}
-                },
-      containerId: 'chart-div'
-    };
-    chart = new google.visualization.ChartWrapper(wrapperOptions);
-    chart.draw();
-}
-
-function reloadChartData(newData) {
-    chart.setDataTable(newData);
-    chart.draw();
-}
-
-$(document).ready(function(){
-  $("#btn-slide-up").click(function(){
-    $("#chart-panel").slideToggle("fast","linear",function(){
-        chart.draw();
-    });
-    $("#btn-slide-up").hide();
-    $("#btn-slide-down").show();
-  });
-  $("#btn-slide-down").click(function(){
-    $("#chart-panel").slideToggle("fast","linear");
-    $("#btn-slide-down").hide();
-    $("#btn-slide-up").show();
-  });
-});
-
-$(function() {
-    var keywords_dict = {{keywords_dict|safe}}
-    var available_keywords = [];
-    for(var key in keywords_dict) {
-        available_keywords[available_keywords.length] = {
-            value: key,
-            desc: keywords_dict[key]
-        };
-    }
-    available_keywords.sort(function(a,b){return b.desc- a.desc});
-    $( "#search-field" ).autocomplete({
-      source: available_keywords
-    })
-    .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
-        return $( "<li>" )
-        .append("<a><span class='keyword'>"+item.value +"</span><span class='description'>"
-                 + item.desc + " tweets</span></a>")
-        .appendTo( ul );
-    };
-});
-
-function filterKeyword() {
-    var keyword = document.getElementById("search-field").value;
-    console.log(keyword);
-    var newPointArray = setHeatmapPointArray(keyword);
-    reloadHeatmapData(newPointArray);
-    changeMarkerVisibility(keyword);
-    var newChartData = setChartDataArray(keyword);
-    reloadChartData(newChartData);
-}
-
-    </script>
+    <script type="text/javascript" src="/js/main.js"></script>
   </head>
 
   <body>
     <div id="control-panel">
       <div class="row">
-          <div id="search-bar" class="col-md-3 col-md-offset-1">
-          <form class="form-inline" onsubmit="javascript:filterKeyword();return false;" >
+          <div id="search-bar" class="col-md-8">
+          <form class="form-inline" onsubmit="javascript:search();return false;" >
             <div class="row">
-              <div id="search-col" class="col-xs-10">
-                <input id="search-field" type="text" class="form-control" name="keyword" placeholder="Key word">
+              <div class="col-md-3">
+                <input id="date-start" type='text' data-date-format="M/D/YY HH:mm" class="form-control" placeholder="From"/>
               </div>
-              <div id="btn-col" class="col-xs-2">
-                <button type="submit" id="search-btn" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+              <div class="col-md-3">
+                <input id="date-end" type='text' data-date-format="M/D/YY HH:mm" class="form-control" placeholder="To"/>
+              </div>
+              <div class="col-md-6">
+              <div class="row">
+                  <div id="search-col" class="col-xs-10">
+                    <input id="search-field" type="text" class="form-control" name="keyword" placeholder="Key word">
+                  </div>
+                  <div id="btn-col" class="col-xs-2">
+                    <button type="submit" id="search-btn" class="btn btn-primary btn-shadow" onclick="search()"><span class="glyphicon glyphicon-search"></span></button>
+                  </div>
+              </div>
               </div>
             </div>
           </form>
           </div>
-          <div class="col-md-3 col-md-offset-8">
-              <button id="btn-pointmap" class="btn btn-default" style="opacity: 1;" onclick="togglePointmap()">Pointmap</button>
-              <button id="btn-heatmap" class="btn btn-default" style="opacity: 1;" onclick="toggleHeatmap()">Heatmap</button>
+          <div class="col-md-3 col-md-offset-9">
+              <div class="btn-group pull-right" data-toggle="buttons">
+                  <label class="btn btn-default btn-shadow">
+                    <input type="checkbox" id="btn-pointmap" onchange="togglePointmap()"> Pointmap
+                  </label>
+                  <label class="btn btn-default btn-shadow">
+                    <input type="checkbox" id="btn-heatmap" onchange="toggleHeatmap()"> Heatmap
+                  </label>
+              </div>
           </div>
       </div>
     </div>
@@ -290,8 +59,8 @@ function filterKeyword() {
     <div id="panel-wrapper">
         <div class="row">
             <div class="col-md-2 col-md-offset-10">
-                <button id="btn-slide-up" class="btn btn-default">Show Twitter Trends <span class="glyphicon glyphicon-chevron-up"></span></button>
-                <button id="btn-slide-down" class="btn btn-default">Hide Twitter Trends <span class="glyphicon glyphicon-chevron-down"></span></button>
+                <button id="btn-slide-up" class="btn btn-default btn-shadow">Show Twitter Trends <span class="glyphicon glyphicon-chevron-up"></span></button>
+                <button id="btn-slide-down" class="btn btn-default btn-shadow">Hide Twitter Trends <span class="glyphicon glyphicon-chevron-down"></span></button>
             </div>
         </div>
         <div class="row">
