@@ -20,6 +20,11 @@ indexes:
   properties:
   - name: hk
   - name: date
+
+- kind: Tweet
+  properties:
+  - name: hk
+  - name: date
   - name: location
   - name: tid
 

@@ -47,7 +47,7 @@ def getHotKeyDict():
             try:
                 q = twitter_map_db_model.HotKeyList.query().order(twitter_map_db_model.HotKeyList.hid)
                 for p in q:
-                    hot_key_dict[p.text] = p.hid
+                    hot_key_dict[p.text] = p.count
                 if not hot_key_dict:
                     return -1
             except Exception, e:
@@ -216,29 +216,41 @@ def construHotKeyList(list):
 
 def getTweetByKeyword(keyword):
     try:
-        if keyword == "":
-            result = twitter_map_db_model.Tweet.query()
+        tweets = memcache.get('keyword:%s' % keyword)
+        if tweets is not None:
+            return tweets
         else:
-            result = twitter_map_db_model.Tweet.query(twitter_map_db_model.Tweet.hk == keyword)
-        tweets = []
-        for t in result:
-            tweet = {"uid":t.uid, "uname":t.uname, "tid":t.tid, "location":{"lat":t.location.lat, "lon":t.location.lon,}, "date":t.date.strftime("%Y-%m-%d %H:%M:%S"), "text":t.text,
-                         "hk":t.hk}
-            tweets.append(json.dumps(tweet))
-        return tweets
-
+            if keyword == "":
+                result = twitter_map_db_model.Tweet.query()
+            else:
+                result = twitter_map_db_model.Tweet.query(twitter_map_db_model.Tweet.hk == keyword)
+            tweets = []
+            for t in result:
+                tweet = {"tid":str(t.tid), "location":{"lat":t.location.lat, "lon":t.location.lon,}, "date":t.date.strftime("%Y-%m-%d %H:%M:%S")}
+                tweets.append(tweet)
+            if keyword != "":
+                memcache.add('keyword:%s' % keyword, tweets)
+            return tweets
     except Exception, e:
         print e
+
+def filterTweetByDate(tweets, startDate, endDate):
+    if not startDate and not endDate:
+        return tweets
+    result = []
+    for t in tweets:
+        date = datetime.strptime(t['date'],"%Y-%m-%d %H:%M:%S")
+        if (not startDate or date >= startDate) and (not endDate or date <= endDate):
+            result.append(t)
+    return result
 
 def getTweetByID(tid):
     try:
         result = twitter_map_db_model.Tweet.query(twitter_map_db_model.Tweet.tid == tid)
-        tweets = []
         for t in result:
-            tweet = {"uid":t.uid, "uname":t.uname, "tid":t.tid, "location":{"lat":t.location.lat, "lon":t.location.lon,}, "date":t.date.strftime("%Y-%m-%d %H:%M:%S"), "text":t.text,
+            tweet = {"uid":t.uid, "uname":t.uname, "tid":str(t.tid), "location":{"lat":t.location.lat, "lon":t.location.lon,}, "date":t.date.strftime("%Y-%m-%d %H:%M:%S"), "text":t.text,
                          "hk":t.hk}
-            tweets.append(json.dumps(tweet))
-        return tweets
+        return tweet
 
     except Exception, e:
         print e

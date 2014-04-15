@@ -70,28 +70,6 @@ class GetTweetFromDatastore(webapp2.RequestHandler):
             self.response.write(e)
 
 
-class MapHandler(webapp2.RequestHandler):
-    def __init__(self, request, response):
-        self.initialize(request, response)
-
-    def get(self):
-        try:
-            form = cgi.FieldStorage()
-            keyword = ""
-            if "keyword" in form:
-                keyword = cgi.escape(form.getvalue('keyword'))
-            tweets = twitter_map_util.getTweetByKeyword(keyword)
-            keywords_dict = json.dumps(twitter_map_util.getHotKeyDict())
-            template_values = {
-                'keyword': keyword,
-                'keywords_dict': keywords_dict,
-                'tweets': tweets,
-            }
-            template = JINJA_ENVIRONMENT.get_template('map.html')
-            self.response.write(template.render(template_values))
-
-        except Exception, e:
-            self.response.write(e)
 
 
 class PostTopHotKey(webapp2.RequestHandler):
