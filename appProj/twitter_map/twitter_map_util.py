@@ -129,12 +129,12 @@ def putTweetToDataStore(tweet):
 
 def getAndSaveTweet(count, page):
     '''
-    this function is used
+    this function is used to get twitter by cron job.
     '''
     try:
         for single_page in tweepy.Cursor(twitter_map_config.twitter_api.search,
                                    q='i',
-                                   count=100,
+                                   count=count,
                                    result_type="recent",
                                    include_entities=True,
                                    lang="en").pages(page):
@@ -196,6 +196,7 @@ def reConstructHotKeyInfo():
     else:
         print "construct new key list error"
         return -1
+    print "succeed"
     return 0
 
 def construHotKeyList(list):
