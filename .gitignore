@@ -61,4 +61,5 @@ script/dep/
 #output file
 test/output/
 test/nohup.out
+appProj/twitter_map/.idea
 
