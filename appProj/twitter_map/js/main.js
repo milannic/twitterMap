@@ -103,7 +103,6 @@ function setMarkerPointArray() {
     var map_value = document.getElementById("btn-pointmap").checked ? null : map;
     for(var i=0; i<tweetsArray.length; i++) {
         var tweet = tweetsArray[i];
-//        console.log(tweet.tid);
         var markerOptions = {
           map: map_value,
           position: new google.maps.LatLng(tweet.location.lat, tweet.location.lon),
@@ -212,7 +211,7 @@ function setChartDataArray() {
       [{'column': 0, 'modifier': ignoreSeconds, 'type': 'date'}],
       [{'column': 1, 'aggregation': google.visualization.data.sum, 'type': 'number'}]
     );
-    var formatter = new google.visualization.DateFormat({pattern: "MMM d, yy HH:mm"});
+    var formatter = new google.visualization.DateFormat({pattern: "d/MM/y HH:mm"});
     formatter.format(result, 0);
     return result;
 }
@@ -225,7 +224,7 @@ function drawChart() {
       options: {title: 'Twitter Trends',
                 backgroundColor: { fill:'white' },
                 hAxis: {title: 'Time', textPosition: 'in',
-                    format:'MMM d, yy HH:mm', showTextEvery: 1, slantedText: true},
+                    format:'d/MM/y HH:mm', showTextEvery: 1, slantedText: true},
                 vAxis: {title: 'Amount'},
                 legend: {position:'none'},
                 explorer: {actions: ['dragToZoom', 'rightClickToReset'], axis: 'horizontal', maxZoomIn: 0.01}

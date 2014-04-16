@@ -120,7 +120,7 @@ class DisplayTweet(webapp2.RequestHandler):
             self.response.write(e)
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler),
+    ('/', MapHandler),
     ('/viewmap', MapHandler),
     ('/gethotkey',HotKeyHandler),
     ('/search', SearchHandler),
