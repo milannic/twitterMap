@@ -129,10 +129,11 @@ class TestGql(webapp2.RequestHandler):
         print sorted_dict
         self.response.write("haha")
 
+
 class TestReconstruct(webapp2.RequestHandler):
+
+
     def get(self):
-        res = twitter_map_util.reConstructHotKeyInfo()
-        if res==-1:
-            self.response.write("error")
-        else:
-            self.response.write("succeed")
+        self.response.write("We are processing,so you don't need to worry about that")
+        twitter_map_util.reConstructHotKeyInfo()
+

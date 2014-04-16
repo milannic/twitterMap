@@ -120,6 +120,7 @@ class DisplayTweet(webapp2.RequestHandler):
             self.response.write(e)
 
 app = webapp2.WSGIApplication([
+    #('/', MainHandler),
     ('/', MapHandler),
     ('/viewmap', MapHandler),
     ('/gethotkey',HotKeyHandler),
@@ -130,7 +131,7 @@ app = webapp2.WSGIApplication([
     ('/testgetdatastore',twitter_map_admin_test.GetTweetFromDatastore),
     ('/testposthotkey',twitter_map_admin_test.PostTopHotKey),
     ('/testcleardb',twitter_map_admin_test.DeleteAllTweetEntries),
-    ('/testautograb',twitter_map_admin_test.TestAutoGrabTweets),
     ('/testgql',twitter_map_admin_test.TestGql),
-    ('/testrecon',twitter_map_admin_test.TestReconstruct)
+    ('/taskautograb',twitter_map_admin_test.TestAutoGrabTweets),
+    ('/taskrecon',twitter_map_admin_test.TestReconstruct)
 ], debug=True)
