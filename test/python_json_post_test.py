@@ -49,7 +49,7 @@ with open('./output/twitter_raw','r') as input_json:
                     print the_page
                 except Exception,e:
                     print e
-        
+            print count 
             count = count +1
             if count >= end:
                 break
