@@ -51,7 +51,6 @@ $(function() {
     });
 });
 
-
 $(document).ready(function(){
   $("#btn-slide-up").click(function(){
     $("#chart-panel").slideToggle("fast","linear",function(){
@@ -72,7 +71,9 @@ function initialize() {
   var mapOptions = {
     zoom: 5,
     center: new google.maps.LatLng(40.579973, -74.045534),
-    mapTypeId: google.maps.MapTypeId.MAP
+    mapTypeId: google.maps.MapTypeId.MAP,
+    mapTypeControl: false,
+    streetViewControl: false
   };
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
@@ -88,6 +89,23 @@ function initialize() {
   setMarkerPointArray();
 }
 
+function changeMapType(id) {
+    switch (id) {
+        case 0:
+            map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+            break;
+        case 1:
+            map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+            break;
+        case 2:
+            map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+            break;
+        case 3:
+            map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
+            break;
+    }
+}
+
 function setHeatmapPointArray() {
     var tweetPoint = [];
     for(var i=0; i<tweetsArray.length; i++) {
@@ -100,7 +118,7 @@ function setHeatmapPointArray() {
 
 function setMarkerPointArray() {
     clearPointmap();
-    var map_value = document.getElementById("btn-pointmap").checked ? null : map;
+    var map_value = document.getElementById("btn-pointmap").checked ? map : null;
     for(var i=0; i<tweetsArray.length; i++) {
         var tweet = tweetsArray[i];
         var markerOptions = {
@@ -111,11 +129,11 @@ function setMarkerPointArray() {
           icon: {
                 path: google.maps.SymbolPath.CIRCLE,
                 fillOpacity: 1.0,
-                fillColor: '3498db',
+                fillColor: '#3498db',
                 strokeOpacity: 1.0,
-                strokeColor: '3498db',
+                strokeColor: '#3498db',
                 strokeWeight: 0,
-                scale: 3 //pixels
+                scale: 2 //pixels
           }
         };
         markers.push(new google.maps.Marker(markerOptions));
@@ -240,6 +258,11 @@ function ignoreSeconds(date) {
     return date;
 }
 
+function ignoreHours(date) {
+    date.setUTCHours(0,0,0);
+    return date;
+}
+
 function reloadChartData(newData) {
     chart.setDataTable(newData);
     chart.draw();
@@ -249,6 +272,7 @@ function search() {
     var keyword = document.getElementById("search-field").value;
     var startDate = document.getElementById("date-start").value;
     var endDate = document.getElementById("date-end").value;
+    hideSearchbar();
     $.getJSON("/search?keyword="+keyword+"&startDate="+startDate+"&endDate="+endDate, function(data){
         $.each(data,function(i,field) {
             tweetsArray = field;
@@ -259,4 +283,39 @@ function search() {
         var newChartData = setChartDataArray();
         reloadChartData(newChartData);
     });
+}
+
+function showSearchbar() {
+    var env = getEnv();
+    if(env == 'xs' || env == 'sm') {
+        $("#date-start").show();
+        $("#date-end").show();
+        $("#cancel-btn").show();
+    }
+}
+
+function hideSearchbar() {
+    var env = getEnv();
+    if(env == 'xs' || env == 'sm') {
+        $("#date-start").hide();
+        $("#date-end").hide();
+        $("#cancel-btn").hide();
+    }
+}
+
+function getEnv() {
+    var envs = ['xs', 'sm', 'md', 'lg'];
+
+    $el = $('<div>');
+    $el.appendTo($('body'));
+
+    for (var i = envs.length - 1; i >= 0; i--) {
+        var env = envs[i];
+
+        $el.addClass('hidden-'+env);
+        if ($el.is(':hidden')) {
+            $el.remove();
+            return env
+        }
+    }
 }

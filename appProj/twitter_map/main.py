@@ -88,7 +88,7 @@ class SearchHandler(webapp2.RequestHandler):
             startDate = ""
             endDate = ""
             if "keyword" in form:
-                keyword = cgi.escape(form.getvalue('keyword'))
+                keyword = cgi.escape(form.getvalue('keyword')).lower()
             if "startDate" in form:
                 startDate = datetime.strptime(form.getvalue('startDate'),"%m/%d/%y %H:%M")
             if "endDate" in form:
