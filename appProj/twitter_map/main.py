@@ -26,6 +26,7 @@ import twitter_map_admin_test
 import twitter_map_config
 from datetime import datetime
 import twitter_map_util
+from google.appengine.api import taskqueue
 
 
 
@@ -103,6 +104,12 @@ class SearchHandler(webapp2.RequestHandler):
         except Exception, e:
             self.response.write(e)
 
+class TaskPushQueue(webapp2.RequestHandler):
+    def get(self):
+        taskqueue.add(url='/taskrecon')
+
+
+
 class DisplayTweet(webapp2.RequestHandler):
     def get(self):
         try:
@@ -133,5 +140,6 @@ app = webapp2.WSGIApplication([
     ('/testcleardb',twitter_map_admin_test.DeleteAllTweetEntries),
     ('/testgql',twitter_map_admin_test.TestGql),
     ('/taskautograb',twitter_map_admin_test.TestAutoGrabTweets),
-    ('/taskrecon',twitter_map_admin_test.TestReconstruct)
+    ('/taskrecon',twitter_map_admin_test.TestReconstruct),
+    ('/taskpushqueue',TaskPushQueue)
 ], debug=True)

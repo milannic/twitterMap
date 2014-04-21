@@ -104,7 +104,7 @@ class DeleteAllTweetEntries(webapp2.RequestHandler):
 
 class TestAutoGrabTweets(webapp2.RequestHandler):
     def get(self):
-        res=twitter_map_util.getAndSaveTweet(100,1)
+        res=twitter_map_util.getAndSaveTweet(100,2)
         self.response.write(res)
 
 

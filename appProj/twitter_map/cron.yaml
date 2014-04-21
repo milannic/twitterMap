@@ -1,9 +1,10 @@
 cron:
 - description: reconstruct the key word list every day
-  url: /taskrecon
-  schedule: every day 01:00
+  url: /taskpushqueue
+  schedule: every day 05:00
   timezone: US/Eastern
-- description: grab the twitter every midnight,due to the limit of free-account of Google AppEngine
+
+- description: reconstruct the key word list every day
   url: /taskautograb
-  schedule: every day 00:00
+  schedule: every day 01:00
   timezone: US/Eastern

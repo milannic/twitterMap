@@ -166,12 +166,7 @@ def reConstructHotKeyInfo():
         return -1;
 
     #then we clear the keyword list
-    try:
-        ndb.delete_multi(twitter_map_db_model.HotKeyList.query().fetch(keys_only=True))
-    except Exception,e:
-        print "database deletion error"
-        print e
-        return -1
+
 
     # Now we take out every ele in the datastore and construct the keyword
     try:
@@ -189,6 +184,12 @@ def reConstructHotKeyInfo():
         #sorted_dict
     except Exception,e:
         print "database read error"
+        print e
+        return -1
+    try:
+        ndb.delete_multi(twitter_map_db_model.HotKeyList.query().fetch(keys_only=True))
+    except Exception,e:
+        print "database deletion error"
         print e
         return -1
     if construHotKeyList(sorted_dict) != -1:
