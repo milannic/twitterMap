@@ -170,24 +170,48 @@ def reConstructHotKeyInfo():
 
     # Now we take out every ele in the datastore and construct the keyword
     try:
-        q = ndb.gql("SELECT hk FROM Tweet")
         global_dict = {}
-        for p in q:
-            if global_dict.has_key(p.hk[0]):
-                global_dict[p.hk[0]] = global_dict[p.hk[0]]+1
-            else:
-                global_dict[p.hk[0]] = 1
+        sorted_dict = []
+        cursor = None
+        try:
+            tweets, next_curs, more = twitter_map_db_model.Tweet.query().fetch_page(twitter_map_config.batch_recon, start_cursor=cursor)
+            for p in tweets:
+                if global_dict.has_key(p.hk[0]):
+                    global_dict[p.hk[0]] = global_dict[p.hk[0]]+1
+                else:
+                    global_dict[p.hk[0]] = 1
+            while more and next_curs:
+                tweets, next_curs, more = twitter_map_db_model.Tweet.query().fetch_page(twitter_map_config.batch_recon, start_cursor=next_curs)
+                #print tweets
+                #print next_curs
+                #print more
+                #print len(tweets)
+                for p in tweets:
+                    if p.hk:
+                        if global_dict.has_key(p.hk[0]):
+                            global_dict[p.hk[0]] = global_dict[p.hk[0]]+1
+                        else:
+                            global_dict[p.hk[0]] = 1
         #print global_dict
-        sorted_dict = sorted(global_dict.items(),key=lambda x:x[1])
-        real_len = len(sorted_dict) and twitter_map_config.key_word_length>len(sorted_dict) or twitter_map_config.key_word_length
-        sorted_dict = sorted_dict[len(sorted_dict)-real_len:len(sorted_dict)]
+        # to prevent quota used up
+        except Exception,e:
+            print "database read error"
+            print e
+            pass
+        try:
+            sorted_dict = sorted(global_dict.items(),key=lambda x:x[1])
+            real_len = len(sorted_dict) and twitter_map_config.key_word_length>len(sorted_dict) or twitter_map_config.key_word_length
+            sorted_dict = sorted_dict[len(sorted_dict)-real_len:len(sorted_dict)]
+        except Exception,e:
+            pass
         #sorted_dict
     except Exception,e:
         print "database read error"
         print e
         return -1
     try:
-        ndb.delete_multi(twitter_map_db_model.HotKeyList.query().fetch(keys_only=True))
+        if len(sorted_dict) != 0:
+            ndb.delete_multi(twitter_map_db_model.HotKeyList.query().fetch(keys_only=True))
     except Exception,e:
         print "database deletion error"
         print e

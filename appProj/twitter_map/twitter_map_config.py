@@ -10,3 +10,4 @@ twitter_api = tweepy.API(twitter_auth)
 top_hot_key_memcache_key="top_hot_keys"
 re_construct_threshold = 10000
 key_word_length = 10
+batch_recon = 10

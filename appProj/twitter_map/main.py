@@ -106,7 +106,7 @@ class SearchHandler(webapp2.RequestHandler):
 
 class TaskPushQueue(webapp2.RequestHandler):
     def get(self):
-        taskqueue.add(url='/taskrecon')
+        taskqueue.add(url='/taskrecon',method='get')
 
 
 
